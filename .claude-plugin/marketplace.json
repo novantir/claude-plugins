@@ -1,0 +1,14 @@
+{
+  "name": "novantir-plugins",
+  "description": "Claude Code plugins by Novantir.",
+  "owner": {
+    "name": "Novantir"
+  },
+  "plugins": [
+    {
+      "name": "secret-input-card",
+      "source": "./plugins/secret-input-card",
+      "description": "Claude asks for an API key in a card inside the chat; you paste it there and it is written to a gitignored .env file or the macOS Keychain without ever reaching the model."
+    }
+  ]
+}
