@@ -1,8 +1,8 @@
 {
   "name": "secret-input-card",
   "displayName": "Secret Input Card",
-  "version": "0.1.5",
-  "description": "Claude asks for an API key in a card inside the chat; you paste it there and it is written to a gitignored .env file or the macOS Keychain without ever reaching the model.",
+  "version": "0.1.6",
+  "description": "Use an API key without exposing it in the chat: you paste it into a protected card, the plugin saves it to a gitignored .env file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the key.",
   "author": {
     "name": "Novantir"
   },

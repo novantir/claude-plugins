@@ -74,6 +74,7 @@ test('registers the tool and instructs the model', async ($, on) => {
     surfaces: ['desktop'], tools: [], outputStyle: null, traits: [], sections: [] } as never)
   expect(JSON.stringify(composed)).toContain(TOOL)
   expect(JSON.stringify(composed)).toContain('[secret-input-card]')
+  expect(JSON.stringify(composed)).toContain('set -a; . ./.env.local; set +a')
 })
 
 test('a key pasted into the chat never reaches the model', async ($, on) => {
@@ -164,7 +165,23 @@ test('a gitignored .env: replaces the line and the summary never holds the value
   expect(writes[0]?.text).toBe(`# config\nOTHER=1\nOPENROUTER_API_KEY=${FAKE}\n`)
   expect(submitted.length).toBe(1)
   expect(submitted[0]).toContain('saved')
+  expect(submitted[0]).toContain('OPENROUTER_API_KEY replaced in /proj/.env')
   expect(submitted[0]).not.toContain(FAKE)
+})
+
+test('a value a shell would expand is written so that sourcing the file keeps it literal', async ($, on) => {
+  const { writes } = fakeHost(on, true)
+  on('tool.call', () => ({ result: {} }))
+  engineBelow(on)
+  const values = [['a$b c`d', "KEY='a$b c`d'"], ["it's $HOME", 'KEY="it\'s \\$HOME"']] as const
+  for (const [index, [value, line]] of values.entries()) {
+    await $.tool.call({ tool: TOOL, tool_use_id: `q${index}`, destination: 'env', file: '/proj/.env', name: 'KEY',
+      reason: 'x' })
+    const ui = await $.ui.mount({ ...card(`q${index}`), surface: 'desktop' })
+    await ui.input({ key: 'secret', text: value, kind: 'submit' })
+    await ui.unmount()
+    expect(writes[index]?.text).toContain(`\n${line}\n`)
+  }
 })
 
 test('with no file named, an env request writes to .env.local', async ($, on) => {

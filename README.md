@@ -4,7 +4,7 @@ A marketplace of Claude Code plugins by Novantir.
 
 | Plugin | What it does |
 | --- | --- |
-| [secret-input-card](plugins/secret-input-card) | Claude asks for an API key in a card inside the chat; you paste it there and it is written to a gitignored `.env` file or the macOS Keychain without ever reaching the model. |
+| [secret-input-card](plugins/secret-input-card) | Use an API key without exposing it in the chat: you paste it into a protected card, it is saved to a gitignored `.env` file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the key. |
 
 ## Install a plugin
 

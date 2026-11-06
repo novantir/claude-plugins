@@ -53,8 +53,12 @@ const INSTRUCTION = [
   `defaults to ${DEFAULT_ENV_FILE}, and the variable name) and "keychain" (the macOS Keychain; give service and`,
   'account). Write the reason in one sentence. The tool only opens the card and answers at once: end your turn',
   `saying the card is open and wait; when the user submits (or cancels), a "${PREFIX} ..." message arrives with the`,
-  'outcome and never the value. Never ask for the value in the chat, do not try to read it afterwards (do not open',
-  'the .env file, do not run security find-generic-password -w) and never repeat it.',
+  'outcome and the variable name, never the value. Then use the key by name, without ever seeing it: load the .env',
+  'file into the environment of the command that needs it (set -a; . ./.env.local; set +a; <command>), or hand the',
+  'file to a tool that reads one (supabase secrets set --env-file .env.local); for the Keychain, read it only inside',
+  'the command that uses it (KEY="$(security find-generic-password -a <account> -s <service> -w)" <command>). Never',
+  'print, echo, cat or grep the value, never write it into code or another file, and never repeat it. Sending it to',
+  'an outside service (Railway variables, Supabase secrets) is a change to that service: ask the user first.',
 ].join(' ')
 
 // Only in this module's memory, never in $.state: what was pasted, per request. A reload of the
@@ -351,9 +355,15 @@ async function gitIgnored($: EngineInterface, file: string): Promise<'ignored' |
   return ignored.exitCode === 0 ? 'ignored' : 'tracked-or-not-ignored'
 }
 
+/**
+ * The .env line. A value with other characters goes in single quotes, which both a shell (`. .env.local`) and
+ * dotenv libraries read literally; only a value holding a single quote needs double quotes, with `\ " $ \``
+ * escaped so a shell does not expand them.
+ */
 function envLine(name: string, value: string): string {
   if (/^[A-Za-z0-9_\-.:/+=@]+$/.test(value)) return `${name}=${value}`
-  return `${name}="${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
+  if (!value.includes("'")) return `${name}='${value}'`
+  return `${name}="${value.replace(/[\\"$`]/g, c => `\\${c}`)}"`
 }
 
 async function saveEnv($: EngineInterface, file: string, name: string, value: string): Promise<string> {
@@ -374,7 +384,7 @@ async function saveEnv($: EngineInterface, file: string, name: string, value: st
   await $.fs.write(file, out.join('\n'))
   const chmod = await $.process.run(['chmod', '600', file]).catch(() => null)
   out.fill('')
-  return `${replaced ? 'replaced' : 'added'} in ${file}${chmod && chmod.exitCode === 0 ? ' (mode 600)' : ''}`
+  return `${name} ${replaced ? 'replaced' : 'added'} in ${file}${chmod && chmod.exitCode === 0 ? ' (mode 600)' : ''}`
 }
 
 async function saveKeychain($: EngineInterface, service: string, account: string, value: string): Promise<string> {
