@@ -1,15 +1,17 @@
 # secret-input-card
 
-A Claude Code plugin that lets Claude **use an API key without the key ever appearing in the conversation**. When Claude needs a key, it opens a protected card inside the chat. You paste the key there and press **Submit**; the plugin writes it straight to a gitignored `.env` file or the macOS Keychain. Claude gets a confirmation and the variable name, never the value, so the key never ends up in a message, a script or a file by mistake.
+A Claude Code plugin that lets Claude **use an API key, token or password without it ever appearing in the conversation**. When Claude needs one, it opens a protected card inside the chat. You paste it there and press **Submit**; the plugin writes it straight to a gitignored `.env` file or the macOS Keychain. Claude gets a confirmation and the variable name, never the value, so the secret never ends up in a message, a script or a file by mistake.
 
 ## What it's for
 
-Once the key is saved, the programs Claude runs can use it by name:
+Any secret Claude needs for your work: API keys for any provider (OpenAI, Anthropic, Stripe, Google Maps, Twilio, SendGrid…), personal access tokens (GitHub, GitLab, npm), database URLs and passwords, webhook signing secrets, cloud credentials (AWS, Cloudflare, Vercel…), and so on. Once a secret is saved, the programs Claude runs can use it by name, for example to:
 
-- **Call an API**: Claude runs your script with the `.env` file loaded, and the script reads `OPENAI_API_KEY` from its environment to call the OpenAI API.
-- **Configure a service**: Claude passes the saved key to a service's own CLI, for example to set a variable on Railway or a secret for Supabase Edge Functions (`supabase secrets set --env-file .env.local`), without the key going through the chat or into the code.
+- **Run your code**: start the app, a script or the tests with the `.env` file loaded, so the code reads `STRIPE_SECRET_KEY`, `DATABASE_URL` or any other variable from its environment.
+- **Call an API**: make a request to any service's API with the token in a header, without the token appearing in the command Claude shows you.
+- **Use a CLI**: hand the saved key to a tool that needs it, such as `gh`, `npm publish`, `psql` or a cloud provider's CLI.
+- **Configure a service**: set a variable on Railway, Vercel, Fly.io or Render, a secret for Supabase Edge Functions (`supabase secrets set --env-file .env.local`) or for GitHub Actions, without the key going through the chat or into the code.
 
-The card only stores the key. Configuring a service is a separate step: it needs access to your account there, and Claude asks for your go-ahead as it would for any other change to an outside service.
+The card only stores the secret. Configuring a service is a separate step: it needs access to your account there, and Claude asks for your go-ahead as it would for any other change to an outside service.
 
 ## How it works
 

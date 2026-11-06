@@ -8,7 +8,7 @@
     {
       "name": "secret-input-card",
       "source": "./plugins/secret-input-card",
-      "description": "Use an API key without exposing it in the chat: you paste it into a protected card, the plugin saves it to a gitignored .env file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the key."
+      "description": "Use any API key, token or password without exposing it in the chat: you paste it into a protected card, the plugin saves it to a gitignored .env file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the secret."
     }
   ]
 }
