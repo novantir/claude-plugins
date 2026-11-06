@@ -7,7 +7,7 @@ A Claude Code plugin that keeps API keys out of the conversation. When Claude ne
 1. Claude calls the `request_secret` tool with a destination, a name and a one-line reason. The tool answers at once ("card opened") and Claude ends its turn.
 2. The tool's row in the chat becomes a card: a title, the reason, where the key goes, a field that shows only dots, and **Cancel** / **Submit**.
 3. On **Submit**, the plugin writes the key:
-   - **`env`**: a variable in a `.env` file (default `.env.local`). The file must be ignored by git and not tracked; committed templates such as `.env.example` are refused. The line is replaced if the variable exists, appended otherwise, and the file is left at mode `600`.
+   - **`env`**: a variable in a `.env` file (default `.env.local`). Inside a git repository the file must be ignored by git and not tracked (outside one there is nothing to commit it to, so it is written as is); committed templates such as `.env.example` are refused. The line is replaced if the variable exists, appended otherwise, and the file is left at mode `600`.
    - **`keychain`**: an item in the macOS Keychain (service and account), written through `security -i` so the value never appears in a command line.
 4. The plugin sends Claude a message such as `[secret-input-card] OpenRouter API key: saved (73 characters)…`, which starts a new turn. Cancelling sends `…nothing was saved`. A card left unanswered for an hour expires.
 
@@ -30,6 +30,15 @@ Answer `y` to add the marketplace, then pick a scope: **user** (every project on
 - The card's field draws dots; the plugin API has no native password field, so a pasted value can flash on screen for an instant before it is masked. Paste the whole key at once: editing in the middle of the dots is not supported.
 - Only what Claude can reach is protected: once a key is in a `.env` file, any command that reads that file can see it. The instruction tells Claude not to, but a plugin cannot enforce it.
 
+## What it runs and touches
+
+Everything happens on your computer. The plugin makes no network requests and sends nothing to any service.
+
+- **Commands**: for `env`, in the `.env` file's folder, `git rev-parse --is-inside-work-tree`, `git ls-files --error-unmatch -- <file>` and `git check-ignore -q -- <file>` (is the file ignored and untracked?), then `chmod 600 <file>`. For `keychain`, `/usr/bin/security -i` with an `add-generic-password` command on its standard input, then `/usr/bin/security find-generic-password -a <account> -s <service>` to confirm the item exists (without `-w`, so the password is not printed).
+- **Files**: it reads and writes only the `.env` file named on the card.
+- **Conversation**: it adds one instruction to the system prompt; it checks each message you send against the key patterns above, on your computer, and holds back a match; and after each card it sends Claude one message with the outcome, the character count and the destination, never the value.
+- **Session state**: each card's title, reason, destination, variable name, character count and status. Never the value.
+
 ## Limits
 
 - `keychain` is macOS only; `env` works anywhere git does.
@@ -45,4 +54,4 @@ claude plugin test plugins/secret-input-card
 
 ## License
 
-MIT, see [LICENSE](../../LICENSE).
+MIT, see [LICENSE](LICENSE).
