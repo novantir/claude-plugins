@@ -1,7 +1,7 @@
 {
   "name": "secret-input-card",
   "displayName": "Secret Input Card",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Use any API key, token or password without exposing it in the chat: you paste it into a protected card, the plugin saves it to a gitignored .env file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the secret.",
   "author": {
     "name": "Novantir"
@@ -10,5 +10,9 @@
   "repository": "https://github.com/novantir/claude-plugins",
   "license": "MIT",
   "types": "./types/index.d.ts",
-  "icon": "./.claude-plugin/icon.png"
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/novantir/claude-plugins/blob/main/plugins/secret-input-card/README.md",
+  "supportUrl": "https://github.com/novantir/claude-plugins/issues",
+  "privacyPolicyUrl": "https://github.com/novantir/claude-plugins/blob/main/plugins/secret-input-card/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/novantir/claude-plugins/blob/main/plugins/secret-input-card/LICENSE"
 }

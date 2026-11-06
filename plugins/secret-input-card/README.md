@@ -96,3 +96,7 @@ claude plugin test plugins/secret-input-card
 ## License
 
 MIT, see [LICENSE](LICENSE).
+
+## Privacy
+
+The plugin collects nothing and makes no network requests; see [PRIVACY.md](PRIVACY.md).
