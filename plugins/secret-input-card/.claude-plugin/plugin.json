@@ -9,5 +9,6 @@
   "homepage": "https://github.com/novantir/claude-plugins/tree/main/plugins/secret-input-card",
   "repository": "https://github.com/novantir/claude-plugins",
   "license": "MIT",
-  "types": "./types/index.d.ts"
+  "types": "./types/index.d.ts",
+  "icon": "./.claude-plugin/icon.png"
 }
