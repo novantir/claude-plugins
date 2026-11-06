@@ -41,14 +41,44 @@ Answer `y` to add the marketplace, then pick a scope: **user** (every project on
 - The card's field draws dots; the plugin API has no native password field, so a pasted value can flash on screen for an instant before it is masked. Paste the whole key at once: editing in the middle of the dots is not supported.
 - Only what Claude can reach is protected: once a key is in a `.env` file, any command that reads that file can see it. The instruction tells Claude not to, but a plugin cannot enforce it.
 
-## What it runs and touches
+## What it runs, reads, writes and sends
 
-Everything happens on your computer. The plugin makes no network requests and sends nothing to any service.
+Everything happens on your computer. The plugin makes **no network requests** and sends nothing to any service. The only thing it sends anywhere is a short message to Claude in the same session, described below, which never holds the secret.
 
-- **Commands**: for `env`, in the `.env` file's folder, `git rev-parse --is-inside-work-tree`, `git ls-files --error-unmatch -- <file>` and `git check-ignore -q -- <file>` (is the file ignored and untracked?), then `chmod 600 <file>`. For `keychain`, `/usr/bin/security -i` with an `add-generic-password` command on its standard input, then `/usr/bin/security find-generic-password -a <account> -s <service>` to confirm the item exists (without `-w`, so the password is not printed).
-- **Files**: it reads and writes only the `.env` file named on the card.
-- **Conversation**: it adds one instruction to the system prompt; it checks each message you send against the key patterns above, on your computer, and holds back a match; and after each card it sends Claude one message with the outcome, the character count, the variable name and the destination, never the value.
-- **Session state**: each card's title, reason, destination, variable name, character count and status. Never the value.
+### The hooks and what each one changes
+
+- **`session.start`**: registers one tool, `request_secret`, which the plugin itself answers (it is the tool's implementation, not a stand-in for another tool).
+- **`tool.call`**: handles calls to `request_secret` only; every other tool call passes through unchanged. It checks the request (see below) and answers at once with `{"card_opened": true, "destination", "name", "where", "message"}`, or refuses the call with the reason.
+- **`prompt.compose`**: adds one section to the system prompt and changes nothing else. It tells Claude to ask for secrets with the card instead of in the chat, to use a saved secret by its variable name without printing it, and to ask you before sending it to an outside service. The full text is `INSTRUCTION` in [`hooks/register.tsx`](hooks/register.tsx).
+- **`prompt.submit`**: checks each message you type against the key patterns listed above, on your computer. A message that matches is not sent to Claude, and a toast tells you why; every other message passes through unchanged.
+- **`ui.render`** on the tool's row (`ToolUse`): draws the card. On a folded group of tool calls (`ToolGroup`) that holds a `request_secret` call: unfolds the group so the card shows.
+
+### The messages it submits to Claude
+
+After each card the plugin submits one message to Claude in the same session, built only from the card's title, the character count, the variable name and the destination:
+
+- `[secret-input-card] <title>: saved (<N> characters). <NAME> added in <file> (mode 600). The value never went through the chat; you can go on.` (`replaced` instead of `added` when the variable already existed)
+- `[secret-input-card] <title>: saved (<N> characters). saved in the macOS Keychain (service <service>, account <account>). The value never went through the chat; you can go on.`
+- `[secret-input-card] <title>: the user cancelled the request; nothing was saved.`
+
+### The programs it runs, and why
+
+- `git rev-parse --is-inside-work-tree`, `git ls-files --error-unmatch -- <file>` and `git check-ignore -q -- <file>`, in the `.env` file's folder: to refuse a `.env` file that git would commit.
+- `chmod 600 <file>`: so only your user can read the `.env` file.
+- `/usr/bin/security -i`, with `add-generic-password -U -a <account> -s <service> -w <value>` on its standard input (so the value never appears in a command line or in `ps`): to save a Keychain item.
+- `/usr/bin/security find-generic-password -a <account> -s <service>`, without `-w`: to confirm the item exists, without reading its value.
+
+`<file>`, `<account>` and `<service>` are the ones shown on the card before you press Submit.
+
+### What it reads and writes
+
+- **Writes**: only the `.env` file shown on the card, and only the one `NAME=value` line (appended, or replacing the line that already sets that variable). This file is meant to be read by your programs (shells, dotenv libraries, service CLIs); that is the point of saving the secret there. The plugin refuses a file git would commit, a file already tracked, and committed templates such as `.env.example`.
+- **Reads**: the same `.env` file, to keep its other lines as they are when it adds or replaces the line. Those lines may hold other secrets; they are written back unchanged and never sent anywhere. It never reads a Keychain value.
+- **Keeps in session state**: each card's title, reason, destination, variable name, character count and status. Never the value.
+
+### Why there is no `userConfig` option for the secret
+
+The secret is typed by you into the card, at the moment Claude needs it, and saved to your own `.env` file or Keychain. The plugin never takes a credential already on your machine and sends it anywhere.
 
 ## Limits
 
