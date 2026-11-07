@@ -1,0 +1,20 @@
+{
+  "name": "roteiro-interativo",
+  "displayName": "Roteiro Interativo",
+  "version": "0.2.0",
+  "description": "Turns long manual step-by-step instructions into a pane beside the chat, one step per card like slides or Duolingo, with \"it worked\" and \"I'm stuck\" buttons, milestones and gates only Claude opens; Claude is told when you get stuck or finish a milestone.",
+  "author": {
+    "name": "Novantir"
+  },
+  "repository": "https://github.com/novantir/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "step-by-step",
+    "checklist",
+    "guide",
+    "artifact",
+    "roteiro",
+    "passo-a-passo"
+  ],
+  "types": "./types/index.d.ts"
+}
