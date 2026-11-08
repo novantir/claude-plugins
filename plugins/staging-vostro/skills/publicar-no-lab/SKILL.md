@@ -1,6 +1,6 @@
 ---
 name: publicar-no-lab
-description: Use quando um app da Novantir precisa ir para o laboratório (o servidor Linux de casa, "Vostro") como protótipo para o cliente ver ou como staging, ou quando a pessoa fala em "subir no lab", "staging no Vostro", "deploy no laboratório", "<app>-stg.novantir.com.br", "tirar o staging da AWS", ou pede para atualizar, ver o estado, ver logs ou voltar a versão de um app que já está lá. Também para criar ou corrigir o deploy/lab/compose.yaml de um app. Não use para produção (essa vai para a AWS) nem para mudanças no próprio servidor (scripts, túnel, backup), que são feitas no repositório servidor.
+description: Use quando um app da Novantir precisa ir para o laboratório (o servidor Linux de casa, "Vostro") como protótipo para o cliente ver ou como staging, ou quando a pessoa fala em "subir no lab", "staging no Vostro", "deploy no laboratório", "<app>-stg.novantir.com.br", "tirar o staging da AWS", ou pede para atualizar, ver o estado, ver logs ou voltar a versão de um app que já está lá. Também para criar ou corrigir o deploy/lab/compose.yaml de um app. Não use para produção (essa vai para a AWS) nem para mudanças no próprio servidor (scripts, túnel, backup), que são feitas no repositório servidor-vostro.
 ---
 
 # Publicar um app no laboratório
@@ -14,7 +14,7 @@ O laboratório é o Vostro (Ubuntu, `ssh vostro` pelo Tailscale). Ele substitui 
 
 ## Divisão de trabalho
 
-- **Você, no repositório do app:** cria `deploy/lab/compose.yaml`, os Dockerfiles que faltarem e `deploy/lab/env.exemplo` (só os **nomes** das variáveis). Depois commita, porque o deploy envia o commit, não a pasta. Mudanças no repositório `servidor` não são deste trabalho: se algo lá precisar mudar, descreva e peça ao Rafael.
+- **Você, no repositório do app:** cria `deploy/lab/compose.yaml`, os Dockerfiles que faltarem e `deploy/lab/env.exemplo` (só os **nomes** das variáveis). Depois commita, porque o deploy envia o commit, não a pasta. Mudanças no repositório `servidor-vostro` não são deste trabalho: se algo lá precisar mudar, descreva e peça ao Rafael.
 - **Rafael, uma vez por app:** `ssh -t vostro 'sudo ~/servidor/scripts/40-projeto.sh <app> 30G'`. Você **nunca** digita nem pede a senha dele. Ponha o comando num terminal para ele e espere.
 - **Deploy:** `~/projects/oficina/servidor-vostro/scripts/lab-deploy.sh <app> <pasta-do-repo>`, do Mac, sem `sudo`. Você mesmo pode rodar.
 - **Rotas públicas:** no Cloudflare (túnel `vostro`), uma vez por app, como o manual descreve.

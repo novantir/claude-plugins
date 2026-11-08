@@ -11,8 +11,8 @@
       "description": "Use any API key, token or password without exposing it in the chat: you paste it into a protected card, the plugin saves it to a gitignored .env file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the secret."
     },
     {
-      "name": "laboratorio-novantir",
-      "source": "./plugins/laboratorio-novantir",
+      "name": "staging-vostro",
+      "source": "./plugins/staging-vostro",
       "description": "Puts a Novantir app on the home lab server as a client prototype or staging, following the lab manual (compose contract, project setup, deploy from the Mac, Cloudflare Tunnel hostnames)."
     },
     {
