@@ -19,6 +19,11 @@
       "name": "laboratorio-novantir",
       "source": "./plugins/laboratorio-novantir",
       "description": "Puts a Novantir app on the home lab server as a client prototype or staging, following the lab manual (compose contract, project setup, deploy from the Mac, Cloudflare Tunnel hostnames)."
+    },
+    {
+      "name": "full-stop-send",
+      "source": "./plugins/full-stop-send",
+      "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop); merges on its own (Full Send) only for the change class the repository allows in writing."
     }
   ]
 }

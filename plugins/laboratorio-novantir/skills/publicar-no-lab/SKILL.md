@@ -9,14 +9,14 @@ O laboratório é o Vostro (Ubuntu, `ssh vostro` pelo Tailscale). Ele substitui 
 
 ## Antes de qualquer coisa
 
-1. **Leia o manual inteiro:** `~/projects/novantir/servidor/docs/MANUAL-APP-NO-LAB.md`. Ele é a fonte de verdade: contrato do `deploy/lab/compose.yaml`, endereços, passo a passo, deploys, logs, limites. Se não conseguir ler o arquivo, peça acesso à pasta `~/projects/novantir/servidor` e pare até ter.
-2. Use como modelo `~/projects/novantir/servidor/exemplos/app-exemplo/` (front, API e banco), validado de ponta a ponta.
+1. **Leia o manual inteiro:** `~/projects/oficina/servidor-vostro/docs/MANUAL-APP-NO-LAB.md`. Ele é a fonte de verdade: contrato do `deploy/lab/compose.yaml`, endereços, passo a passo, deploys, logs, limites. Se não conseguir ler o arquivo, peça acesso à pasta `~/projects/oficina/servidor-vostro` e pare até ter.
+2. Use como modelo `~/projects/oficina/servidor-vostro/exemplos/app-exemplo/` (front, API e banco), validado de ponta a ponta.
 
 ## Divisão de trabalho
 
 - **Você, no repositório do app:** cria `deploy/lab/compose.yaml`, os Dockerfiles que faltarem e `deploy/lab/env.exemplo` (só os **nomes** das variáveis). Depois commita, porque o deploy envia o commit, não a pasta. Mudanças no repositório `servidor` não são deste trabalho: se algo lá precisar mudar, descreva e peça ao Rafael.
 - **Rafael, uma vez por app:** `ssh -t vostro 'sudo ~/servidor/scripts/40-projeto.sh <app> 30G'`. Você **nunca** digita nem pede a senha dele. Ponha o comando num terminal para ele e espere.
-- **Deploy:** `~/projects/novantir/servidor/scripts/lab-deploy.sh <app> <pasta-do-repo>`, do Mac, sem `sudo`. Você mesmo pode rodar.
+- **Deploy:** `~/projects/oficina/servidor-vostro/scripts/lab-deploy.sh <app> <pasta-do-repo>`, do Mac, sem `sudo`. Você mesmo pode rodar.
 - **Rotas públicas:** no Cloudflare (túnel `vostro`), uma vez por app, como o manual descreve.
 - **Segredos:** ficam só em `/srv/projetos/<app>/.env` no servidor. Nunca entram no repositório, no chat ou em argumentos de comando. Quem cria segredos novos (chaves de API, IAM) é o Rafael.
 
