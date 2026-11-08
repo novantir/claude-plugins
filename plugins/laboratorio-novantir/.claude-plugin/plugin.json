@@ -1,0 +1,18 @@
+{
+  "name": "laboratorio-novantir",
+  "displayName": "Laboratório Novantir",
+  "version": "0.1.0",
+  "description": "Puts a Novantir app on the home lab server as a client prototype or permanent staging, following the lab manual: deploy/lab compose contract, one-time project setup, deploy from the Mac and Cloudflare Tunnel hostnames.",
+  "author": {
+    "name": "Novantir"
+  },
+  "repository": "https://github.com/novantir/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "staging",
+    "deploy",
+    "docker-compose",
+    "cloudflare-tunnel",
+    "laboratorio"
+  ]
+}

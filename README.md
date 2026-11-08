@@ -5,6 +5,7 @@ A marketplace of Claude Code plugins by Novantir.
 | Plugin | What it does |
 | --- | --- |
 | [secret-input-card](plugins/secret-input-card) | Use any API key, token or password without exposing it in the chat: you paste it into a protected card, it is saved to a gitignored `.env` file or the macOS Keychain, and Claude gets only the variable name, so the programs it runs can use the secret. |
+| [laboratorio-novantir](plugins/laboratorio-novantir) | Puts a Novantir app on the home lab server as a client prototype or staging, following the private lab manual. |
 | [roteiro-interativo](plugins/roteiro-interativo) | Turns long manual step-by-step instructions into a pane beside the chat, one step per card, with "it worked" and "I'm stuck" buttons and gates only Claude opens; Claude is told when you get stuck or finish a milestone. |
 
 ## Install a plugin
