@@ -1,0 +1,17 @@
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Segredos e ambiente local
+.env
+.env.*
+!.env.exemplo
+*.local.json
+
+# Claude Code: estado local da sessão (as skills e o settings.json do repo são versionados)
+.claude/*
+!.claude/skills
+!.claude/settings.json
+!.claude/hooks/

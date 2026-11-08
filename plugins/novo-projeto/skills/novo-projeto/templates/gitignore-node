@@ -1,0 +1,8 @@
+# Node
+node_modules/
+.next/
+dist/
+out/
+coverage/
+*.tsbuildinfo
+npm-debug.log*

@@ -19,6 +19,11 @@
       "name": "full-stop-send",
       "source": "./plugins/full-stop-send",
       "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop); merges on its own (Full Send) only for the change class the repository allows in writing."
+    },
+    {
+      "name": "novo-projeto",
+      "source": "./plugins/novo-projeto",
+      "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects, git, an AGENTS.md from the category template, README and .gitignore; GitHub repo and cockpit registration prepared for the owner's OK."
     }
   ]
 }
