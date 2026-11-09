@@ -1,0 +1,18 @@
+{
+  "name": "revisao-pr",
+  "displayName": "Revisão de PR",
+  "version": "0.1.0",
+  "description": "Reviews a pull request the way the Claude Code team does: parallel reviewers that see only the diff, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, review depth set by the risk of the change, diff-only re-review with a round cap, and a record of what happened to each finding.",
+  "author": {
+    "name": "Novantir"
+  },
+  "repository": "https://github.com/novantir/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "pull-request",
+    "verification",
+    "security",
+    "workflow"
+  ]
+}

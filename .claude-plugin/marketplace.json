@@ -24,6 +24,11 @@
       "name": "novo-projeto",
       "source": "./plugins/novo-projeto",
       "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects, git, an AGENTS.md from the category template, README and .gitignore; GitHub repo and cockpit registration prepared for the owner's OK."
+    },
+    {
+      "name": "revisao-pr",
+      "source": "./plugins/revisao-pr",
+      "description": "Reviews a pull request with parallel reviewers in a clean context, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, depth set by the risk of the change, diff-only re-review with a round cap, and a record of each finding's fate."
     }
   ]
 }

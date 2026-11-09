@@ -8,6 +8,7 @@ A marketplace of Claude Code plugins by Novantir.
 | [novo-projeto](plugins/novo-projeto) | Starts a new Novantir project the way the existing ones are laid out: folder under the right category, git, `AGENTS.md` from the category template, README and `.gitignore`. |
 | [staging-vostro](plugins/staging-vostro) | Puts a Novantir app on the home lab server as a client prototype or staging, following the private lab manual. |
 | [full-stop-send](plugins/full-stop-send) | Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop); merges on its own (Full Send) only for the change class the repository allows in writing. |
+| [revisao-pr](plugins/revisao-pr) | Reviews a pull request the way the Claude Code team does: parallel reviewers that see only the diff, verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing, depth set by the risk of the change, capped diff-only re-review and a record of each finding's fate. |
 
 ## Install a plugin
 
