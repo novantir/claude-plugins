@@ -27,6 +27,7 @@ Caminho final: `~/projects/<categoria>/<nome>`. Se a pasta já existir, pare e a
 2. **`AGENTS.md`:** copie `templates/AGENTS-<categoria>.md` desta skill (a pasta da skill está em `${CLAUDE_PLUGIN_ROOT}/skills/novo-projeto/templates/`, ou ao lado deste arquivo) e preencha os `{{campos}}`. O título é sempre `# AGENTS.md — <Nome do projeto>`, e a linha seguinte diz o que o projeto é. Não apague seções do modelo; o que ainda não foi decidido fica marcado como "a decidir".
 3. **`README.md`:** a partir de `templates/README.md`.
 4. **`.gitignore`:** a partir de `templates/gitignore-base` mais o bloco da stack, se houver (`gitignore-node`, `gitignore-python`, `gitignore-java`, `gitignore-godot`).
+5. **`REVIEW.md`:** se a skill `revisao-pr` estiver instalada, peça a ela ("cria o REVIEW.md") e preencha só o que já dá para saber (caminhos sensíveis da stack, teto de nits); o resto fica `{{a decidir}}`. É o arquivo que o revisor de PR lê para saber o que é falha neste código.
 5. Nada de `CLAUDE.md` no repositório: o Claude Code lê o `AGENTS.md` direto (regra global).
 6. Primeiro commit, em português: `chore: nasce o projeto <nome> (<categoria>)`.
 

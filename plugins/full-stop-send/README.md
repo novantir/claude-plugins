@@ -16,6 +16,8 @@ The skill first reads the repository's own settings from `docs/processo/full-sto
 
 Without them, only Full Stop applies.
 
+When the [revisao-pr](../revisao-pr) plugin is installed, it is the review step: its comment on the PR is the independent review and its verdict is what the merge gate reads. The PR body also carries "Testado como", "Risco" and "Como reverter" sections.
+
 ## Install
 
 ```

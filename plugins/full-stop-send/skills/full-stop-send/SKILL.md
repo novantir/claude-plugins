@@ -52,7 +52,7 @@ A configuração local **prevalece** sobre esta skill quando for mais restrita. 
 - **Boss:** cuida do git. Cria a branch, commita, faz push, abre o PR, vigia a CI e os comentários, e chama o Rafael.
 - **QA:** revisora independente, que só lê. Comenta os achados e o veredito no PR.
 
-**Numa sessão só do Claude Code:** você faz Code e Boss. A QA é um **subagente** (ferramenta Agent) que recebe só o diff (`gh pr diff N`), o objetivo da issue e a configuração do repo, e **não** recebe as suas conclusões. Ela devolve os achados e um veredito de segurança e de qualidade (🟢, 🟡 ou 🔴), e você publica esse veredito como comentário no PR, identificado como "Revisão da QA". Se o repo tiver agentes separados, cada um faz só o seu papel.
+**Numa sessão só do Claude Code:** você faz Code e Boss. A QA é a skill **`revisao-pr`** (plugin do mesmo marketplace), quando instalada: revisores em paralelo que só veem o diff, verificadores que votam em cada achado antes de ele ser publicado, achados marcados Important, Nit ou Pre-existing, profundidade pelo risco da mudança e teto de rodadas; o comentário dela no PR é a "Revisão da QA" e o veredito dela (🟢, 🟡 ou 🔴, citando o SHA) é o que o gate lê. Sem o plugin, a QA é um **subagente** (ferramenta Agent) que recebe só o diff (`gh pr diff N`), o objetivo da issue e a configuração do repo, e **não** recebe as suas conclusões; ele devolve os achados e o veredito, e você os publica como comentário no PR, identificado como "Revisão da QA". Se o repo tiver agentes separados, cada um faz só o seu papel.
 
 A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Boss. O veredito sai como comentário escrito. Achado crítico de segurança (dado vazando, segredo exposto, falha explorável agora) vai direto ao Rafael, sem esperar o fim do laço.
 
@@ -62,9 +62,10 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
 2. **Branch:** `<id-em-minúsculas>-<slug-curto>` (ex.: `nov-9-login-social`), a partir da branch padrão atualizada.
 3. **Código e prova:** escreva a menor mudança que resolve. Rode a prova da seção 5 localmente.
 4. **Commit:** commits pequenos, em português, no formato `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
-5. **PR:** push da branch e `gh pr create`. O corpo começa com `Resolve <ID>` e traz duas listas:
+5. **PR:** push da branch e `gh pr create`. O corpo começa com `Resolve <ID>` e traz:
    - **Rodado localmente:** cada comando e o resultado;
-   - **Só a CI prova:** o que depende da CI ou de produção para ser verificado.
+   - **Só a CI prova:** o que depende da CI ou de produção para ser verificado;
+   - **Testado como**, **Risco** (Quick, Standard ou Deep, pelos caminhos tocados) e **Como reverter** (um passo, ou o runbook do repo; se não dá para reverter em um passo, dizer). Sem essas três seções a revisão aponta a falta.
 6. **CI:** acompanhe os checks do PR. Se o app oferece um monitor de PR, use-o, em vez de consultar em laço. CI vermelha: corrija ou explique.
 7. **Revisão:** rode o laço da seção 5 com a QA.
 8. **Gate:** confira a lista da seção 5.
@@ -78,9 +79,9 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
 
 ## 5. Revisão, prova e gate
 
-**Laço de revisão**
+**Laço de revisão** (com a `revisao-pr`, vale o laço dela, que tem estas mesmas regras e mais a votação dos verificadores e a re-revisão só do diff novo)
 - Um revisor por vez.
-- Até 3 rodadas de corrigir ou rebater, ou 5 quando a mudança toca segurança, permissões ou dados.
+- Até 3 rodadas de corrigir ou rebater, ou 5 quando a mudança toca segurança, permissões ou dados; Quick (só docs e comentários) tem 1.
 - Em cada correção, a menor mudança possível.
 - Cada achado é **aceito**, com a correção, ou **rebatido**, com o motivo escrito.
 - No fim, uma linha no PR com o número de rodadas e o veredito.

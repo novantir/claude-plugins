@@ -1,7 +1,7 @@
 {
   "name": "novo-projeto",
   "displayName": "Novo projeto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects (produtos, jogos, tools, oficina), git, an AGENTS.md from the category template, README and .gitignore; GitHub repo and cockpit registration prepared for the owner's OK.",
   "author": { "name": "Novantir" },
   "repository": "https://github.com/novantir/claude-plugins",
