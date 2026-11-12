@@ -37,7 +37,8 @@ Deixe os comandos prontos e **peça o OK antes de rodar** cada um:
 
 - **Repositório no GitHub:** `gh repo create novantir/<nome> --private --source=. --remote=origin --push`.
 - **Cockpit:** acrescente a entrada do projeto em `~/projects/oficina/cockpit/config/cockpit.json`, na lista `projects` do MacBook Pro, no fim da lista (os testes conferem a ordem), no formato `{ "id": "<nome>", "label": "<Nome>", "path": "~/projects/<categoria>/<nome>", "github": "novantir/<nome>" }` (sem GitHub: `"github": null, "expect_git": false, "expect_remote": false, "files": true`). Depois, no cockpit: `make validate`, `make test`, `make sign`, commit, e o publish (`zsh scripts/publish.sh`) só com o OK dele.
-- **Laboratório ou produção:** não fazem parte desta skill. Deploy no Vostro é a skill `publicar-no-lab`; produção é decisão dele.
+- **Linear:** crie o projeto `<Nome>` no time Novantir, com o resumo do AGENTS.md e o link do repositório, e uma issue para cada próximo passo que já se sabe. Todo produto tem projeto no Linear: é onde o Rafael acompanha o que foi feito e o que falta.
+- **Laboratório ou produção:** não fazem parte desta skill. Os ambientes de dev e staging no Vostro são a skill `publicar-no-lab`; produção é decisão dele.
 
 ## 4. Ao terminar
 
