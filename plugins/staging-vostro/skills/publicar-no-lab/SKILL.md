@@ -15,10 +15,20 @@ O laboratório é o Vostro (Ubuntu, `ssh vostro` pelo Tailscale). Ele substitui 
 ## Divisão de trabalho
 
 - **Você, no repositório do app:** cria `deploy/lab/compose.yaml`, os Dockerfiles que faltarem e `deploy/lab/env.exemplo` (só os **nomes** das variáveis). Depois commita, porque o deploy envia o commit, não a pasta. Mudanças no repositório `servidor-vostro` não são deste trabalho: se algo lá precisar mudar, descreva e peça ao Rafael.
-- **Rafael, uma vez por app:** `ssh -t vostro 'sudo ~/servidor/scripts/40-projeto.sh <app> 30G'`. Você **nunca** digita nem pede a senha dele. Ponha o comando num terminal para ele e espere.
+- **Projeto no servidor, uma vez por app:** `ssh vostro 'sudo -n novantir-projeto <app> 30G'`, que roda sem senha e você mesmo pode executar. Se pedir senha, é o Rafael quem roda (`ssh -t vostro 'sudo ~/servidor/scripts/40-projeto.sh <app> 30G'`): você **nunca** digita nem pede a senha dele.
 - **Deploy:** `~/projects/oficina/servidor-vostro/scripts/lab-deploy.sh <app> <pasta-do-repo>`, do Mac, sem `sudo`. Você mesmo pode rodar.
 - **Rotas públicas:** no Cloudflare (túnel `vostro`), uma vez por app, como o manual descreve.
 - **Segredos:** ficam só em `/srv/projetos/<app>/.env` no servidor. Nunca entram no repositório, no chat ou em argumentos de comando. Quem cria segredos novos (chaves de API, IAM) é o Rafael.
+
+## Conta AWS do produto
+
+Login (Cognito) e e-mail (SES) ficam na AWS desde o staging, numa conta do produto dentro da organização da Novantir. Antes de pedir uma conta nova, veja se ela já existe (`aws configure list-profiles` e o `~/.aws/config`).
+
+- **Nome da conta:** `<produto>-staging` e, quando houver produção, `<produto>-prod` (ex.: `ansora-staging`, `ansora-prod`).
+- **E-mail do proprietário:** `comercial+<nome-da-conta>@novantir.com.br` (ex.: `comercial+ansora-prod@novantir.com.br`). Não invente outro endereço nem sugira um e-mail pessoal.
+- **Quem cria é o Rafael,** no console da conta de gestão (AWS Organizations → Adicionar uma conta da AWS). Você não cria conta: entregue o passo a passo com o nome e o e-mail já preenchidos nesse padrão, e peça para ele dar ao usuário dele o acesso `AdministratorAccess` no IAM Identity Center.
+- **Depois de criada:** peça só o número da conta (12 dígitos, não é segredo), acrescente o perfil `<nome-da-conta>` no `~/.aws/config` com a mesma sessão SSO dos outros perfis, e passe o `aws sso login --profile <nome-da-conta>` para ele rodar.
+- Recurso pago na conta (user pool, bucket, domínio) só depois de mostrar o custo e ter o OK.
 
 ## Regras que não mudam
 
