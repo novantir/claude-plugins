@@ -25,14 +25,15 @@ Ela diz:
 - a matriz de prova do repo (comandos que rodam localmente e o que só a CI prova);
 - a **classe liberada para Full Send** e arquivos extras que são sempre Full Stop;
 - os papéis, quando o repo usa agentes separados (Code, Boss e QA);
-- o fechamento: labels e prioridades do rastreador, o comando que regenera índices de docs e as issues que nunca fecham.
+- o fechamento: labels e prioridades do rastreador, o comando que regenera índices de docs, as issues que nunca fecham e a issue de ideias a avaliar.
 
 A configuração local **prevalece** sobre esta skill quando for mais restrita. Ela nunca afrouxa as regras das seções 2 e 6.
 
 **Sem configuração local:**
 - vale só o Full Stop, porque a classe liberada é vazia;
 - os checks exigidos são os que o GitHub marcar como obrigatórios no PR (`gh pr checks`);
-- a prova segue a matriz da seção 5.
+- a prova segue a matriz da seção 5;
+- no fechamento, não rode comando de índice nem invente labels: use só as que o rastreador já tem, não mude o status de issue que pareça de manutenção recorrente (comentário datado no lugar) e diga no resumo que a configuração falta.
 
 ## 2. Permissão e limites
 
@@ -61,7 +62,7 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
 
 1. **Issue:** confirme o ID e leia a issue inteira. Se o repo usa rastreador e não há issue, pare e peça uma.
 2. **Branch:** `<id-em-minúsculas>-<slug-curto>` (ex.: `nov-9-login-social`), a partir da branch padrão atualizada.
-3. **Código e prova:** escreva a menor mudança que resolve. Rode a prova da seção 5 localmente.
+3. **Código e prova:** escreva a menor mudança que resolve. Rode a prova da seção 5 localmente. Os arquivos do fechamento (passos 2 a 4 da seção 7: pegadinhas e docs canônicas) entram aqui, antes da revisão.
 4. **Commit:** commits pequenos, em português, no formato `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
 5. **PR:** push da branch e `gh pr create`. O corpo começa com `Resolve <ID>` e traz:
    - **Rodado localmente:** cada comando e o resultado;
@@ -77,7 +78,7 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
     - o que mudou e a prova rodada;
     - os achados da QA e a decisão de cada um;
     - o PR, a CI e o estado final (aguardando OK, mergeado ou abandonado).
-11. **Fechamento:** siga a seção 7. O que é arquivo entra neste mesmo PR, antes da revisão final.
+11. **Fechamento:** o resto da seção 7 (case study, sobras, status e resumo). Os arquivos já entraram no passo 3.
 
 ## 5. Revisão, prova e gate
 
@@ -151,7 +152,7 @@ Vale no fim do fluxo e também sozinho, quando o Rafael diz "fecha a task X", "t
 1. **Evidências:** `gh pr view <N>`, o `git log` da branch, os testes adicionados e o que foi verificado na sessão. Só o que aconteceu de fato: não invente decisão nem pegadinha.
 2. **Pegadinhas:** cada armadilha técnica nova vira `docs/troubleshooting/<slug>.md` (sintoma, causa, correção e como detectar antes do push). Se o repo gera índices de docs, rode o comando da configuração.
 3. **Docs canônicas:** se a mudança alterou limite, preço ou regra de produto, atualize o doc correspondente em `docs/`.
-4. **No mesmo PR:** os arquivos dos passos 2 e 3 entram na branch da issue (`docs: fecha <ID> ...`), nunca na branch padrão. Com o PR já mergeado, abra outro por este mesmo fluxo.
+4. **No mesmo PR:** os arquivos dos passos 2 e 3 entram na branch da issue (`docs: fecha <ID> ...`), nunca na branch padrão, e antes da revisão. Commit depois do veredito da QA muda o SHA: peça nova rodada antes de dar o PR por pronto. Com o PR já mergeado, abra outro por este mesmo fluxo.
 5. **Case study:** comentário ou documento na issue, no modelo abaixo. Se já existe um `📓 Case study` nela, atualize esse.
 6. **Sobras:** o escopo que ficou de fora e cada achado da revisão dispensado como "não bloqueia" viram issue nova no rastreador, com descrição, prioridade e as labels do repo, citada em "Referências". Se a configuração nomeia uma issue de ideias a avaliar, a sobra incerta entra lá como item, em vez de issue própria.
 7. **Status:** a issue só vai para concluída depois do merge. Com o PR aberto, registre o PR, a CI e "aguardando OK do Rafael", e deixe o status como está. Issue que a configuração marca como permanente (manutenção recorrente) não fecha: recebe um comentário datado.

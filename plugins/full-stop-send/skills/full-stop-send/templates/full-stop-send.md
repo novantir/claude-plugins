@@ -36,6 +36,7 @@ A configuração deste repositório para a skill `full-stop-send` (plugin do mar
 - **Labels e prioridades:** {{tipo (Feature, Bug, Refactor...) e área; prioridade High, Medium ou Low}}
 - **Comando dos índices de docs:** `{{python3 scripts/docs-index.py}}` {{ou "não tem"}}
 - **Issues que nunca fecham:** {{as de manutenção recorrente, com o ID · ou "nenhuma"}}
+- **Issue de ideias a avaliar:** {{ID · ou "não tem"}}
 
 ## Como reverter
 
