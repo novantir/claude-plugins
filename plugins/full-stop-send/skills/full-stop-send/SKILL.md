@@ -1,6 +1,6 @@
 ---
 name: full-stop-send
-description: Use quando for levar uma issue ou tarefa até um PR pronto para merge, em qualquer repositório do Rafael. Gatilhos, por exemplo, "full stop", "full send", "leva a NOV-12 até o PR", "abre o PR e deixa pronto para merge", "faz o fluxo completo da issue". Full Stop (o padrão) cria a branch, commita, abre o PR, vigia a CI, passa por revisão independente com prova e para antes do merge. Full Send faz o merge sozinho, mas só na classe de mudança que o próprio repositório liberou e só com o gate completo. Também fecha a issue no fim ("fecha a task X", "terminamos a X", "pode fechar"): case study na issue, sobras em issues novas e pegadinhas em docs/troubleshooting/. Não use para um commit direto que o Rafael pediu, nem para deploy ou operação em produção.
+description: Use quando for levar uma issue ou tarefa até um PR pronto para merge, em qualquer repositório do Rafael. Gatilhos, por exemplo, "full stop", "full send", "leva a NOV-12 até o PR", "abre o PR e deixa pronto para merge", "faz o fluxo completo da issue". Full Stop (o padrão) cria a branch, commita, abre o PR, vigia a CI, passa por revisão independente com prova e para antes do merge. Full Send faz o merge sozinho, mas só na classe de mudança que o próprio repositório liberou e só com o gate completo. Também fecha a issue no fim ("fecha a task X", "terminamos a X", "pode fechar"): case study na issue, sobras em issues novas e pegadinhas em docs/troubleshooting/. Também cria a configuração do repositório ("cria a configuração do Full Stop"). Não use para um commit direto que o Rafael pediu, nem para deploy ou operação em produção.
 ---
 
 # Full Stop / Full Send
@@ -29,7 +29,7 @@ Ela diz:
 
 A configuração local **prevalece** sobre esta skill quando for mais restrita. Ela nunca afrouxa as regras das seções 2 e 6.
 
-**Criar a configuração:** quando pedirem ("cria a configuração do Full Stop", ou a skill `novo-projeto` ao nascer um produto), copie o modelo em `templates/full-stop-send.md` desta skill para `docs/processo/full-stop-send.md` e preencha só o que já dá para saber; o resto fica `{{a decidir}}`. Em repositório que já existe, só com o OK do Rafael, e por PR (é regra dos agentes: sempre Full Stop).
+**Criar a configuração:** quando pedirem ("cria a configuração do Full Stop", ou a skill `novo-projeto` ao nascer um produto), copie o modelo em `templates/full-stop-send.md` desta skill para `docs/processo/full-stop-send.md` e preencha só o que já dá para saber; o resto fica `{{a decidir}}`. Campo ainda entre `{{ }}` conta como ausente: vale para ele o padrão de "Sem configuração local", abaixo. Em repositório que já existe, só com o OK do Rafael, e por PR (é regra dos agentes: sempre Full Stop).
 
 **Sem configuração local:**
 - vale só o Full Stop, porque a classe liberada é vazia;
