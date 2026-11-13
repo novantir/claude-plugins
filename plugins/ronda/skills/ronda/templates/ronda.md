@@ -46,5 +46,5 @@ Os critérios ficam no `REVIEW.md` da raiz. Buscas extras deste repositório:
 | {{Backend}} | `{{src/main}}` | `{{...}}` |
 | {{Frontend}} | `{{web/}}` | `{{...}}` |
 
-- **Áreas de risco** (nunca recebem limpeza): {{auth, cobrança, permissões, migrations, webhooks}}
+- **Áreas de risco a mais** (somam às da skill, que nunca recebem limpeza): {{áreas deste repositório · ou "nenhuma"}}
 - **Cuidados:** {{o que não pode rodar aqui, por exemplo subir a aplicação fora de teste}}

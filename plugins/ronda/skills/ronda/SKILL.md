@@ -9,19 +9,19 @@ A manutenção periódica de um repositório, numa skill só. Cada modo olha uma
 
 | Modo | Olha | Pode editar |
 |---|---|---|
-| `saude` | produção no ar, CI na branch padrão, erros novos | nada |
+| `saude` | produção no ar, CI na branch padrão, erros novos | só o retrato em `.claude/ronda/saude.json` |
 | `seguranca` | o repositório contra os critérios do `REVIEW.md` | nada |
 | `deps` | CVEs, versões atrasadas, modelos de IA, runtime da CI | manifestos, só com o Rafael na sessão e o OK dele |
-| `docs` | coerência entre `AGENTS.md`, `README.md` e o código | `AGENTS.md` e `README.md` |
+| `docs` | coerência entre `AGENTS.md`, `README.md` e o código | `README.md` e os índices gerados; `AGENTS.md` só com o Rafael na sessão |
 | `codigo` | código morto, duplicação, teste faltando | uma limpeza pequena por área |
 
 Sem modo no pedido: numa sessão com o Rafael, pergunte qual; numa rotina, rode o modo que o prompt nomeia e, se não nomear, `saude`.
 
 ## 1. Regras de todos os modos
 
-- **Leia a configuração primeiro:** `docs/processo/ronda.md`. Sem ela, siga com o que dá para descobrir no repositório (manifestos, workflows, `AGENTS.md`), diga no relatório que rodou sem configuração e ofereça criá-la pelo modelo em `templates/ronda.md` desta skill. Não crie o arquivo sem o OK do Rafael.
+- **Leia a configuração primeiro:** `docs/processo/ronda.md`, inteira: seção marcada "não se aplica" faz a ronda pular aquele passo, "Não é achado aqui" tira o item do relatório de segurança, e "Cuidados" vale em todos os modos. Sem ela, siga com o que dá para descobrir no repositório (manifestos, workflows, `AGENTS.md`), diga no relatório que rodou sem configuração e ofereça criá-la pelo modelo em `templates/ronda.md` desta skill. Não crie o arquivo sem o OK do Rafael.
 - **Rotina não pergunta.** Numa rotina, nenhuma pergunta e nenhuma edição fora do que a tabela acima permite ao modo.
-- **Git é de outro fluxo.** Nunca `git add`, `commit`, `push`, `stash`, `checkout`, `reset` nem PR. O que ficar no working tree entra depois numa branch e num PR pela skill `full-stop-send`, numa sessão com o Rafael.
+- **Git é de outro fluxo.** Nunca `git add`, `commit`, `push`, `fetch`, `stash`, `checkout`, `restore`, `clean`, `reset` nem PR. A ronda olha o checkout como ele está: se a branch não for a padrão, o relatório diz isso no cabeçalho, e os modos `docs` e `codigo` não editam nada, só relatam. O que ficar no working tree entra depois numa branch e num PR pela skill `full-stop-send`, numa sessão com o Rafael.
 - **Nada fora do repositório muda:** nenhum deploy, restart, issue criada, comentário postado ou mudança em serviço. O relatório sugere; o Rafael decide.
 - **Não suba a aplicação.** Só os comandos de teste, lint e build que a configuração lista.
 - **Fonte ausente não aborta.** Sem token, sem rede ou sem Docker, pule aquela fonte e liste-a em "Puladas", com o motivo. Fonte pulada não conta como "normal".
@@ -33,7 +33,7 @@ Sem modo no pedido: numa sessão com o Rafael, pergunte qual; numa rotina, rode 
 
 O mesmo formato em todos os modos:
 
-- **Cabeçalho:** data, modo, commit olhado (`git log -1 --format='%h %cs %s'`), fontes consultadas e fontes puladas.
+- **Cabeçalho:** data, modo, branch (`git branch --show-current`) e commit olhados (`git log -1 --format='%h %cs %s'`), fontes consultadas e fontes puladas.
 - **Itens por gravidade:** 🔴 exige ação agora (fora do ar, falha explorável, CVE alto, dado vazando) · 🟡 degradação, risco condicional ou deriva · 🟢 informativo.
 - **Cada item:** onde (`arquivo:linha`, URL ou link do run), o que é, por que importa e a correção sugerida.
 - **Candidatos a issue:** título, uma ou duas linhas e a prioridade sugerida. A skill não cria a issue.
@@ -43,8 +43,8 @@ O mesmo formato em todos os modos:
 ## 3. Modo `saude`
 
 1. **Base:** leia o último retrato, em `.claude/ronda/saude.json` (fora do git). Sem ele, diga "primeira execução" e trate tudo como novo.
-2. **HTTP:** para cada URL da configuração, `curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 10 <url>`. Status fora do esperado ou resposta acima de 2 s é anomalia. Repita uma vez antes de chamar de incidente.
-3. **CI:** `gh run list --branch <padrão> --limit 10 --json databaseId,workflowName,conclusion,createdAt,url`. Falha mais recente de um workflow é 🟡, e 🔴 se a branch padrão está quebrada. Para a que falhou, `gh run view <id> --log-failed | tail -50`.
+2. **HTTP:** para cada URL da configuração, `curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 10 <url>`. Quando o esperado da configuração cita o corpo, troque `-o /dev/null` por um arquivo temporário e confira o texto nele. Status ou corpo fora do esperado, ou resposta acima de 2 s, é anomalia. Repita uma vez antes de chamar de incidente.
+3. **CI:** `gh run list --branch <padrão> --limit 10 --json databaseId,workflowName,conclusion,createdAt,url`. Workflow cujo run mais recente falhou é 🔴; falha anterior, já seguida de um run verde do mesmo workflow, é 🟡. Para a que falhou, `gh run view <id> --log-failed | tail -50`.
 4. **Erros:** o serviço de erros que a configuração nomeia (por exemplo o Sentry), pelo conector da sessão ou pela API com o token do ambiente. "Novo" é o que não estava no retrato anterior; "resolvido" é o que estava e saiu.
 5. **Relatório,** nesta ordem: incidentes ativos, erros novos, anomalias de desempenho, resolvidos desde a última checagem.
 6. **Grave o retrato novo** em `.claude/ronda/saude.json`, só com as fontes de fato consultadas, sempre neste formato (é o que a próxima execução compara):
@@ -60,11 +60,11 @@ O mesmo formato em todos os modos:
    }
    ```
 
-   Fonte pulada fica fora de `fontes` e sem a chave dela: a próxima execução não compara o que não foi lido.
+   Fonte pulada fica fora de `fontes`, e a chave dela é copiada do retrato anterior sem mudança: a base de comparação daquela fonte não se perde. Antes de gravar, `git check-ignore -q .claude/ronda/saude.json`: se o caminho não for ignorado pelo git, não grave e relate 🟡 "pôr `.claude/ronda/` no `.gitignore`".
 
 ## 4. Modo `seguranca`
 
-Só leitura. Olha o repositório inteiro, na branch padrão atualizada (`git fetch`, sem trocar de branch). Revisão do diff de um PR é da skill `revisao-pr`.
+Só leitura. Olha o repositório inteiro, no checkout atual (a branch vai no cabeçalho; fora da padrão, o relatório avisa que a varredura não é da padrão). Revisão do diff de um PR é da skill `revisao-pr`.
 
 1. **Critérios:** a seção "Como uma falha se parece neste código" do `REVIEW.md`, mais as buscas que a configuração lista. Sem `REVIEW.md`, use a lista abaixo e diga isso no relatório.
 2. **Varredura padrão:**
@@ -87,7 +87,7 @@ Só leitura. Olha o repositório inteiro, na branch padrão atualizada (`git fet
 3. **Modelos de IA:** os arquivos que a configuração aponta (modelo em uso e tabela de preço), contra a página de modelos e de preços do fornecedor. Marque modelo com data de retirada e preço divergente. A ronda nunca troca modelo: só sinaliza.
 4. **Runtime da CI:** as versões de linguagem e das actions nos workflows.
 5. **Relatório** por camada: componente, atual, última, salto, risco e link do changelog ou do aviso. 🔴 CVE alto ou crítico, ou modelo com retirada marcada · 🟡 major, CVE médio, depreciação · 🟢 patch e minor seguros. Para cada CVE, deixe pronto o texto da issue.
-6. **Aplicar** (só com o Rafael na sessão, depois do OK dele ao conjunto): apenas patch e minor sem quebra, nomeando cada pacote, nunca a árvore inteira. Rode os comandos de prova da configuração; se quebrar, desfaça o bump e mova o item para "pede issue própria". Major sempre vira issue própria. O PR segue a `full-stop-send`, e bump de dependência é sempre Full Stop.
+6. **Aplicar** (só com o Rafael na sessão, depois do OK dele ao conjunto): apenas patch e minor sem quebra, nomeando cada pacote, nunca a árvore inteira. Rode os comandos de prova da configuração; se quebrar, desfaça o bump reinstalando a versão anterior pelo gerenciador (manifesto e lockfile tinham de estar limpos no `git status --short` antes de aplicar) e mova o item para "pede issue própria". Major sempre vira issue própria. O PR segue a `full-stop-send`, e bump de dependência é sempre Full Stop.
 7. Se a configuração nomeia uma issue permanente de manutenção, termine com o bloco datado que iria nela como comentário. Numa rotina, o bloco sai no relatório, marcado "sugerido, não postado".
 
 ## 6. Modo `docs`
@@ -97,7 +97,7 @@ O `AGENTS.md` é a fonte das regras e da stack; o `README.md` é para quem chega
 1. **Janela:** 7 dias, ou a que o pedido disser. Junte `git log --oneline --no-merges --since="7 days ago"`, as issues concluídas na janela (se o rastreador estiver acessível) e as pegadinhas novas em `docs/troubleshooting/`.
 2. **Compare:** o mesmo item com estado diferente entre os dois arquivos (confira no código qual está certo); mudança da janela que mexe em stack, integração ou regra e não aparece em nenhum; caminho citado que não existe mais; link externo quebrado. Funcionalidade comum não entra no `AGENTS.md`: a falta dela ali não é achado.
 3. **Relatório:** 🔴 divergência entre os dois · 🟡 mudança sem reflexo · 🟢 cosmético. Cada item com o trecho de cada arquivo e a correção.
-4. **Edição:** com o Rafael na sessão, só depois do OK dele. Numa rotina, edite `AGENTS.md` e `README.md` direto no working tree quando houver 🔴 ou 🟡 (os 🟢 entram junto), e nada se não houver. Se o repositório gera índices de docs, rode o comando da configuração.
+4. **Edição:** com o Rafael na sessão, só depois do OK dele. Numa rotina, o `AGENTS.md` nunca é editado: a correção dele sai no relatório, como trecho proposto, para entrar por Full Stop. O `README.md` pode ser editado direto no working tree quando houver 🔴 ou 🟡 (os 🟢 entram junto), só se estiver limpo no `git status --short`, e nada se não houver. Se o repositório gera índices de docs, rode o comando da configuração.
 
 ## 7. Modo `codigo`
 
@@ -105,7 +105,7 @@ O único modo que mexe em código. No máximo **uma limpeza pequena por área**,
 
 1. **Mapeie antes de editar.** Percorra as áreas da configuração (por padrão: backend, frontend, infra e migrations, testes, docs e scripts) e monte o quadro completo: código sem referência, duplicação, `try/catch` decorativo, comportamento sem teste, teste morto ou desligado, doc citando o que não existe. Código morto só com `git grep` confirmando (nome, reflexão, configuração, testes). Na dúvida, não é morto.
 2. **Escolha** a melhor candidata de cada área, ou nenhuma. Tem de ser pequena, reversível e sem mudança de comportamento. Apagar e reaproveitar vale mais que escrever código novo. Teste novo só para comportamento que já existe.
-3. **Nunca recebem limpeza,** só achado: as áreas de risco da configuração (por padrão auth, cobrança, permissões, migrations, webhooks e segurança), infra e migrations.
+3. **Nunca recebem limpeza,** só achado: auth, cobrança, permissões, migrations, webhooks, segurança e infra, mais as áreas de risco que a configuração acrescentar. A configuração nunca encurta essa lista.
 4. **Valide cada uma.** Só edite arquivo limpo no `git status --short`. Rode o comando de prova da área. Falhou ou não dá para validar: desfaça **só a sua edição**, com a edição inversa, e registre "descartada: motivo". Nunca `git checkout` nem `git reset`: apagariam trabalho alheio.
 5. **Relatório** por área: o que o mapa viu, a limpeza aplicada (arquivo, motivo, comando e resultado) ou "nada". Depois, os achados maiores como candidatos a issue, do mais valioso ao menos.
 

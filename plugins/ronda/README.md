@@ -4,10 +4,10 @@ Skill `ronda`: the periodic upkeep of a repository, in one skill with five modes
 
 | Mode | Looks at | May edit |
 | --- | --- | --- |
-| `saude` | production up, CI on the default branch, new errors | nothing |
+| `saude` | production up, CI on the default branch, new errors | only its own snapshot in `.claude/ronda/` |
 | `seguranca` | the repository against the criteria in `REVIEW.md` | nothing |
 | `deps` | CVEs, outdated packages, AI models, CI runtime | manifests, only in a live session and with the owner's OK |
-| `docs` | coherence between `AGENTS.md`, `README.md` and the code | `AGENTS.md` and `README.md` |
+| `docs` | coherence between `AGENTS.md`, `README.md` and the code | `README.md` and generated indexes; `AGENTS.md` only in a live session |
 | `codigo` | dead code, duplication, missing tests | one small cleanup per area |
 
 Every mode returns the same report shape (🔴 / 🟡 / 🟢, with where, what, why and the suggested fix), skips a source it cannot reach instead of aborting, and never touches git: anything left in the working tree goes into a branch and a PR through the [full-stop-send](../full-stop-send) plugin. Reviewing a pull request is the job of [revisao-pr](../revisao-pr).
