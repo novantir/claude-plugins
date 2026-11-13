@@ -13,7 +13,7 @@
     {
       "name": "staging-vostro",
       "source": "./plugins/staging-vostro",
-      "description": "Puts a Novantir app on the home lab server as a client prototype or staging, following the lab manual (compose contract, project setup, deploy from the Mac, Cloudflare Tunnel hostnames)."
+      "description": "Puts a Novantir app on the home lab server as a client prototype or permanent staging, following the lab manual: deploy/lab compose contract, one-time project setup, Cognito, manual and automatic deploy, Cloudflare Tunnel hostnames and Linear tracking."
     },
     {
       "name": "full-stop-send",
@@ -28,7 +28,7 @@
     {
       "name": "revisao-pr",
       "source": "./plugins/revisao-pr",
-      "description": "Reviews a pull request with parallel reviewers in a clean context, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, depth set by the risk of the change, diff-only re-review with a round cap, and a record of each finding's fate."
+      "description": "Reviews a pull request the way the Claude Code team does: parallel reviewers that see only the diff, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, review depth set by the risk of the change, diff-only re-review with a round cap, and a record of what happened to each finding."
     },
     {
       "name": "ronda",

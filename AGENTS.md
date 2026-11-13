@@ -37,7 +37,7 @@ Para testar uma skill de verdade, instale o plugin a partir da pasta local numa 
 ## 5. Regras críticas
 
 - Segredos nunca neste repositório, em teste, fixture ou log; `.env*` e `*.key` estão no `.gitignore`. O `secret-input-card` existe para o valor da chave nunca aparecer: qualquer mudança nele preserva isso (valor só na memória do plugin enquanto o cartão está aberto, mensagens de erro sem o valor).
-- Só leitura dentro dos projetos em que as skills rodam, exceto o que a skill existe para criar (o `novo-projeto` cria a pasta nova; o `full-stop-send` cria branch, commits e PR do repo em que roda).
+- Só leitura dentro dos projetos em que as skills rodam, exceto o que a skill existe para criar (o `novo-projeto` cria a pasta nova; o `full-stop-send` cria branch, commits e PR do repo em que roda, e no fechamento escreve na issue e em `docs/troubleshooting/`; a `ronda` grava o retrato em `.claude/ronda/`, edita o `README.md` e os índices no modo `docs`, faz uma limpeza pequena por área no modo `codigo` e mexe em manifestos no modo `deps` só com o Rafael na sessão, sempre no working tree e sem git).
 - O que chega às outras máquinas e a quem instala o marketplace sai pelo push: **push só com o OK do Rafael.** Licença MIT em tudo; o `PRIVACY.md` do `secret-input-card` acompanha a listagem pública.
 
 ## 6. Fluxo de trabalho
