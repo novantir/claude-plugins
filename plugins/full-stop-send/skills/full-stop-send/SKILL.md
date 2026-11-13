@@ -29,7 +29,7 @@ Ela diz:
 
 A configuração local **prevalece** sobre esta skill quando for mais restrita. Ela nunca afrouxa as regras das seções 2 e 6.
 
-**Criar a configuração:** quando pedirem ("cria a configuração do Full Stop", ou a skill `novo-projeto` ao nascer um produto), copie o modelo em `templates/full-stop-send.md` desta skill para `docs/processo/full-stop-send.md` e preencha só o que já dá para saber; o resto fica `{{a decidir}}`. Campo ainda entre `{{ }}` conta como ausente: vale para ele o padrão de "Sem configuração local", abaixo. Enquanto os checks exigidos ou a classe liberada para Full Send tiverem campo entre `{{ }}`, vale só o Full Stop. Em repositório que já existe, só com o OK do Rafael, e por PR (é regra dos agentes: sempre Full Stop).
+**Criar a configuração:** quando pedirem ("cria a configuração do Full Stop", ou a skill `novo-projeto` ao nascer um produto), copie o modelo em `templates/full-stop-send.md` desta skill para `docs/processo/full-stop-send.md` e preencha só o que já dá para saber; o resto fica `{{a decidir}}`. Campo ainda entre `{{ }}` conta como ausente: vale para ele o padrão de "Sem configuração local", abaixo. Enquanto os checks exigidos ou a classe liberada para Full Send tiverem campo entre `{{ }}`, ou enquanto os checks exigidos disserem "sem CI", vale só o Full Stop. Em repositório que já existe, só com o OK do Rafael, e por PR (é regra dos agentes: sempre Full Stop).
 
 **Sem configuração local:**
 - vale só o Full Stop, porque a classe liberada é vazia;

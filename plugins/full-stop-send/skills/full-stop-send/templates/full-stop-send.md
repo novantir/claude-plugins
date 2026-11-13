@@ -14,7 +14,7 @@ A configuração deste repositório para a skill `full-stop-send` (plugin do mar
 | `{{Backend}}` | `{{./mvnw -B verify}}` |
 | `{{Frontend}}` | `{{pnpm lint && pnpm test && pnpm build}}` |
 
-{{Sem CI ainda: escreva "sem CI" e crie a CI antes do primeiro cliente.}}
+{{Sem CI ainda: escreva "sem CI" e crie a CI antes do primeiro cliente. Enquanto estiver "sem CI", vale só o Full Stop.}}
 
 ## Matriz de prova
 
