@@ -1,13 +1,13 @@
 # AGENTS.md — claude-plugins
 
-O marketplace `novantir/claude-plugins`: os plugins e skills do Claude Code da Novantir (`secret-input-card`, `novo-projeto`, `staging-vostro`, `full-stop-send`).
+O marketplace `novantir/claude-plugins`: os plugins e skills do Claude Code da Novantir (`secret-input-card`, `novo-projeto`, `staging-vostro`, `full-stop-send`, `revisao-pr`, `ronda`).
 
 Este é o único arquivo de instruções do repositório. Vale junto com as regras globais do Rafael (`~/.claude/CLAUDE.md`); quando divergirem, este prevalece.
 
 ## 1. O que é
 
 - **Cuida de:** as skills e plugins que o Rafael instala no Claude Code com `/plugin install <plugin> --marketplace novantir/claude-plugins`. Um plugin é uma pasta em `plugins/<plugin>/` com `.claude-plugin/plugin.json`, `README.md`, `LICENSE` e, conforme o caso, `skills/<skill>/SKILL.md`, `hooks/` e `tests/`. O [`marketplace.json`](.claude-plugin/marketplace.json) lista o que está publicado.
-- **Plugins hoje:** `secret-input-card` (chave sem passar pelo chat; hooks em TSX, com testes e política de privacidade), `novo-projeto` (nasce um projeto na categoria certa, com o `AGENTS.md` do modelo em `skills/novo-projeto/templates/`), `staging-vostro` (skill `publicar-no-lab`, que segue o manual do `servidor-vostro`), `full-stop-send` (issue → PR pronto para merge, com parada ou merge conforme o repo permitir).
+- **Plugins hoje:** `secret-input-card` (chave sem passar pelo chat; hooks em TSX, com testes e política de privacidade), `novo-projeto` (nasce um projeto na categoria certa, com o `AGENTS.md` do modelo em `skills/novo-projeto/templates/`), `staging-vostro` (skill `publicar-no-lab`, que segue o manual do `servidor-vostro`), `full-stop-send` (issue → PR pronto para merge, com parada ou merge conforme o repo permitir, e o fechamento da issue com case study), `revisao-pr` (revisão de PR com achados verificados), `ronda` (manutenção periódica em cinco modos: saúde, segurança, dependências, docs e código).
 - **Vizinhos na `oficina/`:** `claude-config` (regras globais), `cockpit` (monitor), `flux-capacitor` (fábrica de apps), `servidor-vostro` (laboratório). Não duplicar o que já mora num deles; apontar. O conhecimento que vale para toda uma categoria de projeto mora nos modelos do `novo-projeto`, não nos projetos.
 
 ## 2. Stack
@@ -47,4 +47,5 @@ Para testar uma skill de verdade, instale o plugin a partir da pasta local numa 
 ## 7. Lembretes
 
 - O `staging-vostro` só serve numa máquina que tenha o repositório `servidor-vostro` e acesso SSH ao laboratório: a skill guarda o fluxo, o manual guarda os detalhes.
+- Skill nova só quando nenhuma das que existem comporta o caso como passo ou modo: o `fechar-task` virou a seção 7 do `full-stop-send` e as cinco rotinas do Ansora viraram os modos da `ronda` (13/11/2026). O que é de um repositório só vai para a configuração dele em `docs/processo/`, não para uma skill no repositório.
 - Ao preencher um `AGENTS.md` e perceber regra que faltava no modelo da categoria, a mudança é um PR aqui, em `plugins/novo-projeto/skills/novo-projeto/templates/`.
