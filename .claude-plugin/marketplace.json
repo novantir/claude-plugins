@@ -13,22 +13,27 @@
     {
       "name": "staging-vostro",
       "source": "./plugins/staging-vostro",
-      "description": "Puts a Novantir app on the home lab server as a client prototype or staging, following the lab manual (compose contract, project setup, deploy from the Mac, Cloudflare Tunnel hostnames)."
+      "description": "Puts a Novantir app on the home lab server as a client prototype or permanent staging, following the lab manual: deploy/lab compose contract, one-time project setup, Cognito, manual and automatic deploy, Cloudflare Tunnel hostnames and Linear tracking."
     },
     {
       "name": "full-stop-send",
       "source": "./plugins/full-stop-send",
-      "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop); merges on its own (Full Send) only for the change class the repository allows in writing."
+      "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop). Merges on its own (Full Send) only for the change class a repository allows in writing, with the full gate. Closes the issue at the end with a case study, follow-up issues and troubleshooting notes."
     },
     {
       "name": "novo-projeto",
       "source": "./plugins/novo-projeto",
-      "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects, git, an AGENTS.md from the category template, README and .gitignore; GitHub repo and cockpit registration prepared for the owner's OK."
+      "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects (produtos, jogos, tools, oficina), git, an AGENTS.md from the category template, README, .gitignore and, for products, the docs/ skeleton with the process settings; GitHub repo and cockpit registration prepared for the owner's OK."
     },
     {
       "name": "revisao-pr",
       "source": "./plugins/revisao-pr",
-      "description": "Reviews a pull request with parallel reviewers in a clean context, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, depth set by the risk of the change, diff-only re-review with a round cap, and a record of each finding's fate."
+      "description": "Reviews a pull request the way the Claude Code team does: parallel reviewers that see only the diff, independent verifiers that vote on each finding before it is posted, findings tagged Important / Nit / Pre-existing with file:line evidence, review depth set by the risk of the change, diff-only re-review with a round cap, and a record of what happened to each finding."
+    },
+    {
+      "name": "ronda",
+      "source": "./plugins/ronda",
+      "description": "Periodic upkeep of a repository in five modes, each with its own short report: production health, security sweep, dependencies and AI models, docs coherence, and a small code cleanup. Reads the repository's own settings from docs/processo/ronda.md and never touches git."
     }
   ]
 }

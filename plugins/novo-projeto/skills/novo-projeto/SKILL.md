@@ -1,11 +1,11 @@
 ---
 name: novo-projeto
-description: Use quando o Rafael quer começar um projeto novo, em qualquer categoria ("cria um projeto novo", "começa um produto chamado X", "novo jogo", "nova tool", "cria o repo do Y", "inicia o projeto"). A skill pergunta o que falta, cria a pasta na categoria certa de ~/projects (produtos, jogos, tools ou oficina), inicia o git, escreve o AGENTS.md a partir do modelo da categoria, o README e o .gitignore, e deixa prontos os passos que dependem do OK dele (repositório no GitHub e registro no cockpit). Não use para mover ou renomear um projeto que já existe, nem para criar subpastas dentro de um repositório.
+description: Use quando o Rafael quer começar um projeto novo, em qualquer categoria ("cria um projeto novo", "começa um produto chamado X", "novo jogo", "nova tool", "cria o repo do Y", "inicia o projeto"). A skill pergunta o que falta, cria a pasta na categoria certa de ~/projects (produtos, jogos, tools ou oficina), inicia o git, escreve o AGENTS.md a partir do modelo da categoria, o README, o .gitignore e, em produtos, o esqueleto de docs/ com a configuração do processo, e deixa prontos os passos que dependem do OK dele (repositório no GitHub e registro no cockpit). Não use para mover ou renomear um projeto que já existe, nem para criar subpastas dentro de um repositório.
 ---
 
 # Novo projeto
 
-Cria um projeto do Rafael do jeito que os outros já são: na pasta da categoria, com `AGENTS.md` no padrão, `README.md`, `.gitignore` e git iniciado. O conhecimento que vale para todos os projetos de uma categoria mora nos modelos desta skill, em `templates/`: quando uma regra nova se mostrar útil em vários projetos, ela entra no modelo, e os projetos seguintes já nascem com ela.
+Cria um projeto do Rafael do jeito que os outros já são: na pasta da categoria, com `AGENTS.md` no padrão, `README.md`, `.gitignore` e git iniciado. Produto nasce também com `docs/` e a configuração do processo (Full Stop, revisão e ronda). O conhecimento que vale para todos os projetos de uma categoria mora nos modelos desta skill, em `templates/`: quando uma regra nova se mostrar útil em vários projetos, ela entra no modelo, e os projetos seguintes já nascem com ela.
 
 ## 1. Pergunte só o que falta
 
@@ -24,12 +24,19 @@ Caminho final: `~/projects/<categoria>/<nome>`. Se a pasta já existir, pare e a
 ## 2. Crie a pasta e os arquivos
 
 1. `mkdir -p ~/projects/<categoria>/<nome> && cd` nela, e `git init -b main`.
-2. **`AGENTS.md`:** copie `templates/AGENTS-<categoria>.md` desta skill (a pasta da skill está em `${CLAUDE_PLUGIN_ROOT}/skills/novo-projeto/templates/`, ou ao lado deste arquivo) e preencha os `{{campos}}`. O título é sempre `# AGENTS.md — <Nome do projeto>`, e a linha seguinte diz o que o projeto é. Não apague seções do modelo; o que ainda não foi decidido fica marcado como "a decidir".
+2. **`AGENTS.md`:** copie `templates/AGENTS-<categoria>.md` desta skill (a pasta da skill está em `${CLAUDE_PLUGIN_ROOT}/skills/novo-projeto/templates/`, ou ao lado deste arquivo) e preencha os `{{campos}}`. O título é sempre `# AGENTS.md — <Nome do projeto>`, e a linha seguinte diz o que o projeto é. Não apague seções do modelo, exceto o bloco que o próprio modelo marca como apagável (com a stack ainda a decidir, ele fica); o que ainda não foi decidido fica marcado como "a decidir".
 3. **`README.md`:** a partir de `templates/README.md`.
 4. **`.gitignore`:** a partir de `templates/gitignore-base` mais o bloco da stack, se houver (`gitignore-node`, `gitignore-python`, `gitignore-java`, `gitignore-godot`).
-5. **`REVIEW.md`:** se a skill `revisao-pr` estiver instalada, peça a ela ("cria o REVIEW.md") e preencha só o que já dá para saber (caminhos sensíveis da stack, teto de nits); o resto fica `{{a decidir}}`. É o arquivo que o revisor de PR lê para saber o que é falha neste código.
-5. Nada de `CLAUDE.md` no repositório: o Claude Code lê o `AGENTS.md` direto (regra global).
-6. Primeiro commit, em português: `chore: nasce o projeto <nome> (<categoria>)`.
+5. **Só em `produtos`, o esqueleto de `docs/`:**
+   - `docs/README.md`, a partir de `templates/docs-README.md`;
+   - `docs/troubleshooting/.gitkeep` e `docs/processo/.gitkeep`;
+   - `docs/processo/full-stop-send.md`, a partir do modelo da skill `full-stop-send`, se o plugin estiver instalado: peça o arquivo a ela, como no passo do `REVIEW.md`;
+   - `docs/processo/ronda.md`, a partir do modelo da skill `ronda`, do mesmo jeito.
+
+   Preencha só o que já dá para saber; o resto fica `{{a decidir}}`. Plugin que faltar: diga qual no fim, em vez de inventar o arquivo.
+6. **`REVIEW.md`:** se a skill `revisao-pr` estiver instalada, peça a ela ("cria o REVIEW.md") e preencha só o que já dá para saber (caminhos sensíveis da stack, teto de nits); o resto fica `{{a decidir}}`. É o arquivo que o revisor de PR lê para saber o que é falha neste código.
+7. Nada de `CLAUDE.md` no repositório: o Claude Code lê o `AGENTS.md` direto (regra global).
+8. Primeiro commit, em português: `chore: nasce o projeto <nome> (<categoria>)`.
 
 ## 3. O que depende do OK do Rafael
 
