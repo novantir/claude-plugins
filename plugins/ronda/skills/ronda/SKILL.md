@@ -19,7 +19,7 @@ Sem modo no pedido: numa sessão com o Rafael, pergunte qual; numa rotina, rode 
 
 ## 1. Regras de todos os modos
 
-- **Leia a configuração primeiro:** `docs/processo/ronda.md`, inteira: seção marcada "não se aplica" faz a ronda pular aquele passo, "Não é achado aqui" tira o item do relatório de segurança, e "Cuidados" vale em todos os modos. Sem ela, siga com o que dá para descobrir no repositório (manifestos, workflows, `AGENTS.md`), diga no relatório que rodou sem configuração e ofereça criá-la pelo modelo em `templates/ronda.md` desta skill. Não crie o arquivo sem o OK do Rafael.
+- **Leia a configuração primeiro:** `docs/processo/ronda.md`, inteira: seção marcada "não se aplica" faz a ronda pular aquele passo, "Não é achado aqui" tira o item dos achados de segurança, e "Cuidados" vale em todos os modos. O que a configuração tirar não some: o passo pulado entra em "Puladas" e o item entra numa linha "Suprimidos pela configuração", com o lugar e a entrada que o suprimiu. Segredo versionado nunca é suprimido. Sem ela, siga com o que dá para descobrir no repositório (manifestos, workflows, `AGENTS.md`), diga no relatório que rodou sem configuração e ofereça criá-la pelo modelo em `templates/ronda.md` desta skill. Não crie o arquivo sem o OK do Rafael.
 - **Rotina não pergunta.** Numa rotina, nenhuma pergunta e nenhuma edição fora do que a tabela acima permite ao modo.
 - **Git é de outro fluxo.** Nunca `git add`, `commit`, `push`, `fetch`, `stash`, `checkout`, `restore`, `clean`, `reset` nem PR. A ronda olha o checkout como ele está: se a branch não for a padrão, o relatório diz isso no cabeçalho, e os modos `docs` e `codigo` não editam nada, só relatam. O que ficar no working tree entra depois numa branch e num PR pela skill `full-stop-send`, numa sessão com o Rafael.
 - **Nada fora do repositório muda:** nenhum deploy, restart, issue criada, comentário postado ou mudança em serviço. O relatório sugere; o Rafael decide.
@@ -38,15 +38,15 @@ O mesmo formato em todos os modos:
 - **Cada item:** onde (`arquivo:linha`, URL ou link do run), o que é, por que importa e a correção sugerida.
 - **Candidatos a issue:** título, uma ou duas linhas e a prioridade sugerida. A skill não cria a issue.
 - **Arquivos alterados**, quando o modo editou algo (`git status --short`).
-- **Sem achado:** uma linha, "Tudo normal", mais as fontes puladas.
+- **Sem achado:** uma linha, "Tudo normal", mais as fontes puladas e os itens suprimidos pela configuração.
 
 ## 3. Modo `saude`
 
-1. **Base:** leia o último retrato, em `.claude/ronda/saude.json` (fora do git). Sem ele, diga "primeira execução" e trate tudo como novo.
+1. **Base:** confira que o retrato fica fora do git, com `git check-ignore -q .claude/ronda/saude.json`. Se o caminho não for ignorado, o retrato não será gravado nesta execução: abra o relatório com 🟡 "pôr `.claude/ronda/` no `.gitignore`" e diga que a comparação "novo/resolvido" não vale. Depois leia o último retrato, em `.claude/ronda/saude.json`. Sem ele, diga "primeira execução" e trate tudo como novo.
 2. **HTTP:** para cada URL da configuração, `curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 10 <url>`. Quando o esperado da configuração cita o corpo, troque `-o /dev/null` por um arquivo temporário e confira o texto nele. Status ou corpo fora do esperado, ou resposta acima de 2 s, é anomalia. Repita uma vez antes de chamar de incidente.
 3. **CI:** `gh run list --branch <padrão> --limit 10 --json databaseId,workflowName,conclusion,createdAt,url`. Workflow cujo run mais recente falhou é 🔴; falha anterior, já seguida de um run verde do mesmo workflow, é 🟡. Para a que falhou, `gh run view <id> --log-failed | tail -50`.
 4. **Erros:** o serviço de erros que a configuração nomeia (por exemplo o Sentry), pelo conector da sessão ou pela API com o token do ambiente. "Novo" é o que não estava no retrato anterior; "resolvido" é o que estava e saiu.
-5. **Relatório,** nesta ordem: incidentes ativos, erros novos, anomalias de desempenho, resolvidos desde a última checagem.
+5. **Relatório,** nesta ordem: incidentes ativos (com o runbook de queda da configuração, se houver), erros novos, anomalias de desempenho, resolvidos desde a última checagem.
 6. **Grave o retrato novo** em `.claude/ronda/saude.json`, só com as fontes de fato consultadas, sempre neste formato (é o que a próxima execução compara):
 
    ```json
@@ -60,7 +60,7 @@ O mesmo formato em todos os modos:
    }
    ```
 
-   Fonte pulada fica fora de `fontes`, e a chave dela é copiada do retrato anterior sem mudança: a base de comparação daquela fonte não se perde. Antes de gravar, `git check-ignore -q .claude/ronda/saude.json`: se o caminho não for ignorado pelo git, não grave e relate 🟡 "pôr `.claude/ronda/` no `.gitignore`".
+   Fonte pulada fica fora de `fontes`, e a chave dela é copiada do retrato anterior sem mudança: a base de comparação daquela fonte não se perde. Se a checagem do passo 1 falhou, não grave.
 
 ## 4. Modo `seguranca`
 
@@ -87,7 +87,7 @@ Só leitura. Olha o repositório inteiro, no checkout atual (a branch vai no cab
 3. **Modelos de IA:** os arquivos que a configuração aponta (modelo em uso e tabela de preço), contra a página de modelos e de preços do fornecedor. Marque modelo com data de retirada e preço divergente. A ronda nunca troca modelo: só sinaliza.
 4. **Runtime da CI:** as versões de linguagem e das actions nos workflows.
 5. **Relatório** por camada: componente, atual, última, salto, risco e link do changelog ou do aviso. 🔴 CVE alto ou crítico, ou modelo com retirada marcada · 🟡 major, CVE médio, depreciação · 🟢 patch e minor seguros. Para cada CVE, deixe pronto o texto da issue.
-6. **Aplicar** (só com o Rafael na sessão, depois do OK dele ao conjunto): apenas patch e minor sem quebra, nomeando cada pacote, nunca a árvore inteira. Rode os comandos de prova da configuração; se quebrar, desfaça o bump reinstalando a versão anterior pelo gerenciador (manifesto e lockfile tinham de estar limpos no `git status --short` antes de aplicar) e mova o item para "pede issue própria". Major sempre vira issue própria. O PR segue a `full-stop-send`, e bump de dependência é sempre Full Stop.
+6. **Aplicar** (só com o Rafael na sessão, depois do OK dele ao conjunto): apenas patch e minor sem quebra, nomeando cada pacote, nunca a árvore inteira. Antes de aplicar, manifesto e lockfile têm de estar limpos no `git status --short`: sujos, não aplique, só relate. Rode os comandos de prova da configuração; se quebrar, desfaça o bump reinstalando a versão anterior pelo gerenciador, confira com `git diff --quiet -- <manifesto> <lockfile>` que nada sobrou (se sobrou, liste o resíduo e peça ao Rafael para restaurar) e mova o item para "pede issue própria". Major sempre vira issue própria. O PR segue a `full-stop-send`, e bump de dependência é sempre Full Stop.
 7. Se a configuração nomeia uma issue permanente de manutenção, termine com o bloco datado que iria nela como comentário. Numa rotina, o bloco sai no relatório, marcado "sugerido, não postado".
 
 ## 6. Modo `docs`
