@@ -132,6 +132,7 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
 - [ ] Nenhum item de "Sempre Full Stop" é tocado.
 - [ ] Nenhum valor de segredo no diff. Busque `sk-`, `ghp_`, `github_pat_`, `eyJ`, `-----BEGIN` e URLs com `usuário:senha@`.
 - [ ] O gate da seção 5 passou inteiro.
+- [ ] Há pelo menos um check exigido, e ele rodou neste SHA e está verde. Sem check exigido, por qualquer motivo (não declarado, "sem CI", "nenhum", lista vazia no GitHub), é Full Stop.
 - [ ] A QA deu 🟢 de segurança e de qualidade, sem achado aberto, **citando o SHA do head**. Se o SHA mudar por qualquer motivo, inclusive ao atualizar a branch com a padrão, o 🟢 deixa de valer e é preciso nova revisão.
 - [ ] Há issue, e o PR começa com `Resolve <ID>`.
 
