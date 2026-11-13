@@ -1,6 +1,6 @@
 ---
 name: full-stop-send
-description: Use quando for levar uma issue ou tarefa até um PR pronto para merge, em qualquer repositório do Rafael. Gatilhos, por exemplo, "full stop", "full send", "leva a NOV-12 até o PR", "abre o PR e deixa pronto para merge", "faz o fluxo completo da issue". Full Stop (o padrão) cria a branch, commita, abre o PR, vigia a CI, passa por revisão independente com prova e para antes do merge. Full Send faz o merge sozinho, mas só na classe de mudança que o próprio repositório liberou e só com o gate completo. Não use para um commit direto que o Rafael pediu, nem para deploy ou operação em produção.
+description: Use quando for levar uma issue ou tarefa até um PR pronto para merge, em qualquer repositório do Rafael. Gatilhos, por exemplo, "full stop", "full send", "leva a NOV-12 até o PR", "abre o PR e deixa pronto para merge", "faz o fluxo completo da issue". Full Stop (o padrão) cria a branch, commita, abre o PR, vigia a CI, passa por revisão independente com prova e para antes do merge. Full Send faz o merge sozinho, mas só na classe de mudança que o próprio repositório liberou e só com o gate completo. Também fecha a issue no fim ("fecha a task X", "terminamos a X", "pode fechar"): case study na issue, sobras em issues novas e pegadinhas em docs/troubleshooting/. Não use para um commit direto que o Rafael pediu, nem para deploy ou operação em produção.
 ---
 
 # Full Stop / Full Send
@@ -24,7 +24,8 @@ Ela diz:
 - os checks de CI exigidos para o merge;
 - a matriz de prova do repo (comandos que rodam localmente e o que só a CI prova);
 - a **classe liberada para Full Send** e arquivos extras que são sempre Full Stop;
-- os papéis, quando o repo usa agentes separados (Code, Boss e QA).
+- os papéis, quando o repo usa agentes separados (Code, Boss e QA);
+- o fechamento: labels e prioridades do rastreador, o comando que regenera índices de docs e as issues que nunca fecham.
 
 A configuração local **prevalece** sobre esta skill quando for mais restrita. Ela nunca afrouxa as regras das seções 2 e 6.
 
@@ -76,6 +77,7 @@ A QA não aprova formalmente, porque a conta do GitHub costuma ser a mesma do Bo
     - o que mudou e a prova rodada;
     - os achados da QA e a decisão de cada um;
     - o PR, a CI e o estado final (aguardando OK, mergeado ou abandonado).
+11. **Fechamento:** siga a seção 7. O que é arquivo entra neste mesmo PR, antes da revisão final.
 
 ## 5. Revisão, prova e gate
 
@@ -142,7 +144,51 @@ gh pr merge <N> --squash --match-head-commit <sha-do-🟢>
 
 **Suspensão:** o Rafael pode desligar o Full Send a qualquer momento. Um merge que dê problema desliga o Full Send até ele religar.
 
-## 7. Se travar
+## 7. Fechamento da issue
+
+Vale no fim do fluxo e também sozinho, quando o Rafael diz "fecha a task X", "terminamos a X" ou "pode fechar". Em lote, feche todas sem parar para perguntar; só pergunte se não der para saber qual é a issue.
+
+1. **Evidências:** `gh pr view <N>`, o `git log` da branch, os testes adicionados e o que foi verificado na sessão. Só o que aconteceu de fato: não invente decisão nem pegadinha.
+2. **Pegadinhas:** cada armadilha técnica nova vira `docs/troubleshooting/<slug>.md` (sintoma, causa, correção e como detectar antes do push). Se o repo gera índices de docs, rode o comando da configuração.
+3. **Docs canônicas:** se a mudança alterou limite, preço ou regra de produto, atualize o doc correspondente em `docs/`.
+4. **No mesmo PR:** os arquivos dos passos 2 e 3 entram na branch da issue (`docs: fecha <ID> ...`), nunca na branch padrão. Com o PR já mergeado, abra outro por este mesmo fluxo.
+5. **Case study:** comentário ou documento na issue, no modelo abaixo. Se já existe um `📓 Case study` nela, atualize esse.
+6. **Sobras:** o escopo que ficou de fora e cada achado da revisão dispensado como "não bloqueia" viram issue nova no rastreador, com descrição, prioridade e as labels do repo, citada em "Referências". Se a configuração nomeia uma issue de ideias a avaliar, a sobra incerta entra lá como item, em vez de issue própria.
+7. **Status:** a issue só vai para concluída depois do merge. Com o PR aberto, registre o PR, a CI e "aguardando OK do Rafael", e deixe o status como está. Issue que a configuração marca como permanente (manutenção recorrente) não fecha: recebe um comentário datado.
+8. **Resumo:** uma linha por issue, com ID, título, PR e o que ficou pendente de ação do Rafael. Achado crítico em aberto aparece nessa linha.
+
+Não peça revisão do rascunho antes de gravar, a menos que ele peça. Não edite à mão índice gerado.
+
+```markdown
+## 📓 Case study
+**PR:** [<dono>/<repo>#N](<url do PR>), DD/MM/AAAA.
+
+### 📖 Em linguagem simples
+2 a 4 frases para quem não programa: o que mudou para o cliente ou o negócio, e por quê.
+
+### TL;DR
+1 ou 2 frases do que foi entregue.
+
+### Escopo entregue
+- Mudanças concretas (arquivos, endpoints, telas), a partir do PR e dos commits.
+
+### Commits relevantes
+- O PR (squash na branch padrão) e, se ajudar, commits marcantes da branch.
+
+### Decisões técnicas
+- Decisão, o porquê e a alternativa descartada.
+
+### Pegadinhas descobertas
+- 🔴 Crítica, 🟡 Média ou 🟢 Conhecida: sintoma, causa e correção (link para o arquivo em docs/troubleshooting/). Sem nenhuma: "Nenhuma."
+
+### Para reusar em outros projetos
+- Padrão reaproveitável e quando se aplica. Sem nada: "Nada."
+
+### Referências
+- Issues relacionadas, issues de sobras, docs externas e pendências manuais do Rafael.
+```
+
+## 8. Se travar
 
 Situações de trava:
 - CI vermelha sem causa clara;

@@ -1,8 +1,8 @@
 {
   "name": "full-stop-send",
   "displayName": "Full Stop / Full Send",
-  "version": "0.1.1",
-  "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop). Merges on its own (Full Send) only for the change class a repository allows in writing, with the full gate.",
+  "version": "0.2.0",
+  "description": "Takes an issue to a merge-ready pull request with proof, an independent review and green CI, then stops (Full Stop). Merges on its own (Full Send) only for the change class a repository allows in writing, with the full gate. Closes the issue at the end with a case study, follow-up issues and troubleshooting notes.",
   "author": {
     "name": "Novantir"
   },

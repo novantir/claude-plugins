@@ -12,11 +12,18 @@ The skill first reads the repository's own settings from `docs/processo/full-sto
 - the issue tracker and ID format;
 - the required CI checks;
 - the proof matrix;
-- the change class allowed for Full Send.
+- the change class allowed for Full Send;
+- what the closing step needs: tracker labels, the docs index command and the issues that never close.
+
+A template for that file lives in `skills/full-stop-send/templates/full-stop-send.md`.
 
 Without them, only Full Stop applies.
 
 When the [revisao-pr](../revisao-pr) plugin is installed, it is the review step: its comment on the PR is the independent review and its verdict is what the merge gate reads. The PR body also carries "Testado como", "Risco" and "Como reverter" sections.
+
+## Closing the issue
+
+The last step of the flow, also usable on its own ("fecha a task X"): troubleshooting notes and canonical docs go into the same PR, a fixed-format case study goes on the issue, leftover scope becomes new issues, and the issue is only marked done after the merge.
 
 ## Install
 
