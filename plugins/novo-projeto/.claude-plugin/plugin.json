@@ -1,10 +1,17 @@
 {
   "name": "novo-projeto",
   "displayName": "Novo projeto",
-  "version": "0.1.2",
-  "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects (produtos, jogos, tools, oficina), git, an AGENTS.md from the category template, README and .gitignore; GitHub repo and cockpit registration prepared for the owner's OK.",
-  "author": { "name": "Novantir" },
+  "version": "0.2.0",
+  "description": "Starts a new Novantir project the way the existing ones are laid out: folder under the right category of ~/projects (produtos, jogos, tools, oficina), git, an AGENTS.md from the category template, README, .gitignore and, for products, the docs/ skeleton with the process settings; GitHub repo and cockpit registration prepared for the owner's OK.",
+  "author": {
+    "name": "Novantir"
+  },
   "repository": "https://github.com/novantir/claude-plugins",
   "license": "MIT",
-  "keywords": ["scaffold", "new-project", "agents-md", "conventions"]
+  "keywords": [
+    "scaffold",
+    "new-project",
+    "agents-md",
+    "conventions"
+  ]
 }
