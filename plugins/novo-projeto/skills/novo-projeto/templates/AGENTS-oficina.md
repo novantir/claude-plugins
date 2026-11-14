@@ -1,38 +1,38 @@
-# AGENTS.md — {{Nome}}
+# AGENTS.md — {{Name}}
 
-{{Uma frase: que parte do processo de programar este repositório cuida.}}
+{{One sentence: which part of the programming process this repository takes care of.}}
 
-Este é o único arquivo de instruções do repositório. Vale junto com as regras globais do Rafael (`~/.claude/CLAUDE.md`); quando divergirem, este prevalece.
+This is the repository's only instructions file. It applies together with Rafael's global rules (`~/.claude/CLAUDE.md`); where they differ, this one prevails.
 
-## 1. O que é
+## 1. What it is
 
-- **Cuida de:** {{o pedaço do processo: configuração, plugins, monitoramento, fábrica, servidor…}}
-- **Vizinhos na `oficina/`:** `claude-config` (regras globais), `claude-plugins` (skills e plugins), `cockpit` (monitor), `flux-capacitor` (fábrica de apps), `servidor-vostro` (laboratório). Não duplicar o que já mora num deles; apontar.
+- **Takes care of:** {{the piece of the process: configuration, plugins, monitoring, factory, server…}}
+- **Neighbors in `oficina/`:** `claude-config` (global rules), `claude-plugins` (skills and plugins), `cockpit` (monitor), `flux-capacitor` (app factory), `servidor-vostro` (lab). Do not duplicate what already lives in one of them; point to it.
 
 ## 2. Stack
 
-{{Linguagem e dependências. Na oficina, preferir o que já está na máquina (Python do sistema, zsh) e nada de dependência externa sem motivo escrito.}}
+{{Language and dependencies. In the oficina, prefer what is already on the machine (the system Python, zsh) and no external dependency without a written reason.}}
 
-## 3. Como rodar e validar
+## 3. How to run and validate
 
-{{Comandos de rodar, testar e validar, na ordem em que um PR precisa passar.}}
+{{Commands to run, test and validate, in the order a PR has to pass them.}}
 
-## 4. Convenções
+## 4. Conventions
 
-- Docs, UI e commits em português; identificadores em inglês. Commits pequenos, `tipo: descrição`.
-- Roda igual nas duas máquinas com Claude (MacBook Pro e Alienware) e, quando for o caso, no servidor Linux.
-- Toda mudança de regra tem data e motivo no próprio arquivo.
+- Docs, UI and commits in Portuguese; identifiers in English. Small commits, `tipo: descrição`.
+- Runs the same on both machines with Claude (MacBook Pro and Alienware) and, when it applies, on the Linux server.
+- Every rule change has a date and a reason in the file itself.
 
-## 5. Regras críticas
+## 5. Critical rules
 
-- Segredos só por variável de ambiente ou Keychain; nunca em arquivo, log ou argumento de comando.
-- Só leitura dentro dos projetos que esta ferramenta observa; nunca escreve neles.
-- O que chega às outras máquinas (publish, instalador) só sai com o OK do Rafael.
+- Secrets only through an environment variable or the Keychain; never in a file, a log or a command argument.
+- Read-only inside the projects this tool watches; it never writes to them.
+- What reaches the other machines (publish, installer) only goes out with Rafael's OK.
 
-## 6. Fluxo de trabalho
+## 6. Workflow
 
-- PR e parada antes do merge (**Full Stop**, plugin `full-stop-send`).
+- A PR and a stop before the merge (**Full Stop**, `full-stop-send` plugin).
 
-## 7. Lembretes
+## 7. Reminders
 
-{{Comece vazio.}}
+{{Start empty.}}

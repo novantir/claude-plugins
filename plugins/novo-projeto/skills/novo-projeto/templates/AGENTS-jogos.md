@@ -1,43 +1,43 @@
-# AGENTS.md — {{Nome do jogo}}
+# AGENTS.md — {{Game name}}
 
-{{Uma frase: que jogo é, para que plataforma.}}
+{{One sentence: what game it is, for which platform.}}
 
-Este é o único arquivo de instruções do repositório. Vale junto com as regras globais do Rafael (`~/.claude/CLAUDE.md`); quando divergirem, este prevalece. O estado atual e a próxima ação vivem em `CONTEXTO.md`, atualizado no fim de cada sessão.
+This is the repository's only instructions file. It applies together with Rafael's global rules (`~/.claude/CLAUDE.md`); where they differ, this one prevails. The current state and the next action live in `CONTEXTO.md`, updated at the end of each session.
 
-## 1. O que é
+## 1. What it is
 
-- **Jogo:** {{gênero, ideia central, em 2 ou 3 linhas}}
-- **Plataforma:** {{Windows · macOS · web · celular}}
-- **Estado:** {{protótipo · primeira fase jogável · em acabamento}}, desde {{data}}.
+- **Game:** {{genre, core idea, in 2 or 3 lines}}
+- **Platform:** {{Windows · macOS · web · mobile}}
+- **Status:** {{prototype · first playable level · polishing}}, since {{date}}.
 
-## 2. Engine e ferramentas
+## 2. Engine and tools
 
-- **Engine:** {{Godot 4.x · Unreal 5.x · a decidir}}, versão travada em {{arquivo}}.
-- **Máquina de desenvolvimento:** {{Alienware (Windows) · MacBook Pro}}. Builds de distribuição saem de {{máquina}}.
-- **Assets grandes** (`.png`, `.wav`, `.blend`, cenas binárias) passam pelo Git LFS; `.gitattributes` diz quais.
+- **Engine:** {{Godot 4.x · Unreal 5.x · to be decided}}, version pinned in {{file}}.
+- **Development machine:** {{Alienware (Windows) · MacBook Pro}}. Distribution builds come from {{machine}}.
+- **Large assets** (`.png`, `.wav`, `.blend`, binary scenes) go through Git LFS; `.gitattributes` says which.
 
-## 3. Como rodar e testar
+## 3. How to run and test
 
-{{Comando ou passo para abrir no editor, rodar a cena principal e rodar a verificação automática, se houver.}}
+{{Command or step to open it in the editor, run the main scene and run the automatic check, if there is one.}}
 
-## 4. Convenções
+## 4. Conventions
 
-- Docs e mensagens de commit em português; código, nomes de nós, cenas e assets em inglês.
-- Commits pequenos, `tipo: descrição`. Cena ou asset binário: um por commit, com a descrição do que mudou, porque o diff não mostra.
-- Nunca editar arquivo binário (`.uasset`, `.tscn` binária, `.blend`) como texto.
-- Decisões de design em `docs/design/`, com data.
+- Docs and commit messages in Portuguese; code, node names, scenes and assets in English.
+- Small commits, `tipo: descrição`. A binary scene or asset: one per commit, with a description of what changed, because the diff does not show it.
+- Never edit a binary file (`.uasset`, binary `.tscn`, `.blend`) as text.
+- Design decisions in `docs/design/`, with a date.
 
-## 5. Regras críticas
+## 5. Critical rules
 
-- Chaves de serviços (IA, voz, lojas) nunca no projeto nem no pacote final; só o nome da variável.
-- Nada de asset de terceiros sem licença registrada em `ASSETS.md` (nome, autor, URL, licença, onde é usado, se é gerado por IA).
-- Publicar na loja, na jam ou em qualquer lugar: só o Rafael.
+- Service keys (AI, voice, stores) never in the project nor in the final package; only the variable's name.
+- No third-party asset without a license recorded in `ASSETS.md` (name, author, URL, license, where it is used, whether it is AI-generated).
+- Publishing to the store, the jam or anywhere: only Rafael.
 
-## 6. Fluxo de trabalho
+## 6. Workflow
 
-- Mudança de código segue o **Full Stop / Full Send** (plugin `full-stop-send`) quando o repositório tiver `docs/processo/full-stop-send.md`; sem ele, só Full Stop: PR e parada antes do merge.
-- Fim de sessão: atualizar `CONTEXTO.md` (o que ficou pronto, o que travou, a próxima ação).
+- A code change follows **Full Stop / Full Send** (`full-stop-send` plugin) when the repository has `docs/processo/full-stop-send.md`; without it, only Full Stop: a PR and a stop before the merge.
+- End of session: update `CONTEXTO.md` (what got done, what got stuck, the next action).
 
-## 7. Lembretes
+## 7. Reminders
 
-{{Pegadinhas da engine e da máquina. Comece vazio.}}
+{{Pitfalls of the engine and the machine. Start empty.}}

@@ -1,16 +1,16 @@
-# {{Nome do projeto}}
+# {{Project name}}
 
-{{A mesma frase do AGENTS.md: o que é e para quem.}}
+{{The same sentence as in the AGENTS.md: what it is and who it is for.}}
 
-| Pasta | O que tem |
+| Folder | What it holds |
 |---|---|
-| `docs/` | Decisões, processo e troubleshooting |
-| {{pasta}} | {{o quê}} |
+| `docs/` | Decisions, process and troubleshooting |
+| {{folder}} | {{what}} |
 
-## Como rodar
+## How to run
 
-{{Comandos, na ordem.}}
+{{Commands, in order.}}
 
-## Estado
+## Status
 
-{{Uma linha: onde está e qual é a próxima entrega.}} Regras para quem trabalha no repositório: [`AGENTS.md`](AGENTS.md).
+{{One line: where it stands and what the next delivery is.}} Rules for whoever works in the repository: [`AGENTS.md`](AGENTS.md).

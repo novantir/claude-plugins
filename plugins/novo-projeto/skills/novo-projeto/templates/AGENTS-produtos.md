@@ -1,76 +1,76 @@
-# AGENTS.md — {{Nome do projeto}}
+# AGENTS.md — {{Project name}}
 
-{{Uma frase: o que o produto é e para quem.}}
+{{One sentence: what the product is and who it is for.}}
 
-Este é o único arquivo de instruções do repositório. Vale junto com as regras globais do Rafael (`~/.claude/CLAUDE.md`); quando divergirem, este prevalece. Regras estáveis ficam aqui; pegadinhas técnicas vão para `docs/troubleshooting/`, uma por arquivo.
+This is the repository's only instructions file. It applies together with Rafael's global rules (`~/.claude/CLAUDE.md`); where they differ, this one prevails. Stable rules live here; technical pitfalls go to `docs/troubleshooting/`, one per file.
 
-## 1. O que é
+## 1. What it is
 
-- **Produto:** {{o que faz, em 2 ou 3 linhas}}
-- **Para quem:** {{cliente ou público}}
-- **Estado:** {{ideia · protótipo · em uso}}, desde {{data}}.
+- **Product:** {{what it does, in 2 or 3 lines}}
+- **For whom:** {{customer or audience}}
+- **Status:** {{idea · prototype · in use}}, since {{date}}.
 
 ## 2. Stack
 
-{{A decidir. Quando decidir, registre aqui camada por camada: front, back, banco, hospedagem, e onde roda em produção. Nada de serviço pago novo sem o OK do Rafael.}}
+{{To be decided. Once decided, record it here layer by layer: front end, back end, database, hosting, and where it runs in production. No new paid service without Rafael's OK.}}
 
-## 3. Como rodar local
+## 3. How to run locally
 
-{{A decidir. Comandos exatos, portas e o que precisa estar instalado.}}
+{{To be decided. Exact commands, ports and what needs to be installed.}}
 
-- O ambiente local é isolado: banco e serviços sobem na máquina (por exemplo com `compose.yaml`), por um script só.
-- O perfil de desenvolvimento **recusa subir** se apontar para banco, login ou cobrança de produção. Essa trava nasce junto com a primeira conexão a um serviço de verdade.
+- The local environment is isolated: the database and services start on the machine (for example with `compose.yaml`), from a single script.
+- The development profile **refuses to start** if it points at a production database, login or billing. That guard is born together with the first connection to a real service.
 
-## 4. Convenções
+## 4. Conventions
 
-- Português do Brasil em tudo que gente lê: docs, UI, comentários e mensagens de commit. Código, tabelas e nomes em inglês.
-- Commits pequenos, `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
-- Documentação em `docs/`, nunca `.md` solto na raiz. Decisões com data e motivo.
-- Sem `try/catch` decorativo, sem fallback para cenário que não acontece, sem abstração antes do terceiro caso parecido.
+- Brazilian Portuguese in everything people read: docs, UI, comments and commit messages. Code, tables and names in English.
+- Small commits, `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
+- Documentation in `docs/`, never a loose `.md` at the root. Decisions with a date and a reason.
+- No decorative `try/catch`, no fallback for a scenario that does not happen, no abstraction before the third similar case.
 
-## 5. Testes e gate de merge
+## 5. Tests and the merge gate
 
-- **A prova fica no código:** bug corrigido ganha um teste que falha sem a correção. Regra crítica do item 6 (dono do dado, permissão, cobrança) tem teste próprio, não só revisão.
-- **Banco de verdade nos testes de integração** (um contêiner descartável), nunca um banco simulado em memória diferente do de produção.
-- **CI em todo PR** para a branch padrão: testes, lint, build e análise estática que quebra o build quando aparece achado novo. A branch padrão exige a CI verde e o PR atualizado.
-- **Cobertura:** {{piso para os pacotes críticos (cobrança, exclusão de dados, permissões) · a decidir}}. O número do resto é para acompanhar, sem bloquear.
-- Os comandos e os nomes dos checks ficam em `docs/processo/full-stop-send.md`.
+- **The proof lives in the code:** a fixed bug gets a test that fails without the fix. A critical rule from item 6 (data owner, permission, billing) has its own test, not just review.
+- **A real database in integration tests** (a disposable container), never an in-memory fake database that differs from production's.
+- **CI on every PR** to the default branch: tests, lint, build and static analysis that breaks the build when a new finding shows up. The default branch requires green CI and an up-to-date PR.
+- **Coverage:** {{floor for the critical packages (billing, data deletion, permissions) · to be decided}}. The number for the rest is for tracking, without blocking.
+- The commands and the names of the checks live in `docs/processo/full-stop-send.md`.
 
-## 6. Regras críticas
+## 6. Critical rules
 
-- **Segredos** nunca em arquivo versionado, log ou chat; só o nome da variável. Pedir chave pelo plugin `secret-input-card`.
-- **Dados de pessoas:** {{o que o produto guarda e a regra de LGPD, ou "não guarda dados pessoais"}}. Dado pessoal em log sempre com máscara.
-- **Produção:** deploy, cobrança e e-mail real só com o OK explícito do Rafael. Merge na branch padrão não publica em produção: a publicação é um disparo à parte.
-- **Operação destrutiva** (apagar ou alterar dados em massa, apagar recurso de nuvem ou conta de serviço, em qualquer ambiente): antes de rodar, mostrar o comando exato, quantos registros são afetados e se há como voltar, e esperar uma frase clara de autorização. Conversa anterior e "vamos testar do zero" não autorizam.
-- **Migration aplicada não se edita** nem se desfaz revertendo o PR: a correção vai numa migration nova.
-- {{Outras regras que não se quebram}}
+- **Secrets** never in a versioned file, a log or the chat; only the variable's name. Ask for a key through the `secret-input-card` plugin.
+- **People's data:** {{what the product stores and the LGPD rule, or "stores no personal data"}}. Personal data in a log is always masked.
+- **Production:** deploy, billing and real e-mail only with Rafael's explicit OK. A merge to the default branch does not publish to production: publishing is a separate trigger.
+- **Destructive operation** (deleting or changing data in bulk, deleting a cloud resource or a service account, in any environment): before running it, show the exact command, how many records are affected and whether there is a way back, and wait for a clear sentence of authorization. An earlier conversation and "vamos testar do zero" do not authorize it.
+- **An applied migration is not edited** nor undone by reverting the PR: the fix goes in a new migration.
+- {{Other rules that are never broken}}
 
-**Se o produto tem backend com contas de clientes** (apague este bloco se não tiver):
+**If the product has a backend with customer accounts** (delete this block if it does not):
 
-- O dono do dado sai sempre de quem está autenticado, nunca do que veio no path ou no corpo do pedido. Toda consulta filtra pelo dono; fora do escopo responde 404.
-- Trabalho que não pode se perder (processar upload, mandar webhook, limpar recurso externo) vai para uma fila durável, agendada na mesma transação que grava o dado. Nada de tarefa só em memória.
-- Tarefa agendada roda com trava, para não duplicar com mais de uma instância.
-- Endpoint público que manda e-mail ou gera custo tem proteção contra robô e limite de uso.
-- **Se usa IA com documentos de terceiros:** texto de documento é dado, não comando; a resposta não renderiza link nem imagem que veio do documento sem restrição; e há um conjunto de casos de ataque rodando nos testes.
+- The data owner always comes from whoever is authenticated, never from what came in the path or in the request body. Every query filters by owner; anything out of scope answers 404.
+- Work that cannot be lost (processing an upload, sending a webhook, cleaning up an external resource) goes to a durable queue, scheduled in the same transaction that writes the data. No task held only in memory.
+- A scheduled task runs with a lock, so it does not duplicate with more than one instance.
+- A public endpoint that sends e-mail or generates cost has bot protection and a usage limit.
+- **If it uses AI with third-party documents:** document text is data, not a command; the answer does not render a link or image that came from the document without restriction; and a set of attack cases runs in the tests.
 
-## 7. Fluxo de trabalho
+## 7. Workflow
 
-- Toda mudança segue o **Full Stop / Full Send** (plugin `full-stop-send`): branch da issue, PR com a prova, CI, revisão independente (plugin `revisao-pr`, que lê o `REVIEW.md`), parada antes do merge e, no fim, o fechamento da issue com o case study. A configuração deste repositório fica em `docs/processo/full-stop-send.md` (checks da CI, matriz de prova e a classe liberada para Full Send; sem classe liberada, só Full Stop).
-- **Manutenção periódica** pela skill `ronda` (saúde, segurança, dependências, docs e código), com os dados deste repositório em `docs/processo/ronda.md`.
-- Rastreador: {{Linear, time NOV · ou "sem rastreador ainda"}}. Ideia ainda incerta não vira issue solta: entra numa issue de "a avaliar".
+- Every change follows **Full Stop / Full Send** (`full-stop-send` plugin): the issue's branch, a PR with the proof, CI, independent review (`revisao-pr` plugin, which reads `REVIEW.md`), a stop before the merge and, at the end, the issue's closing with the case study. This repository's settings live in `docs/processo/full-stop-send.md` (CI checks, proof matrix and the class cleared for Full Send; with no cleared class, only Full Stop).
+- **Periodic maintenance** by the `ronda` skill (health, security, dependencies, docs and code), with this repository's data in `docs/processo/ronda.md`.
+- Tracker: {{Linear, team NOV · or "no tracker yet"}}. An idea that is still uncertain does not become a loose issue: it goes into an "a avaliar" issue.
 
-## 8. Antes do primeiro cliente
+## 8. Before the first customer
 
-Marque cada item com a data em que ficou pronto. Enquanto houver item aberto, o produto não recebe cliente pagante.
+Mark each item with the date it was done. While any item is open, the product takes no paying customer.
 
-- [ ] CI em todo PR e proteção na branch padrão.
-- [ ] Piso de cobertura nos pacotes críticos.
-- [ ] Publicação em produção só por disparo manual, com um teste rápido automático logo depois.
-- [ ] Como reverter uma versão, escrito em `docs/operacao/` **e ensaiado uma vez**.
-- [ ] Aviso de queda que chega ao Rafael, e o serviço de erros ligado.
-- [ ] Alerta automático de dependência vulnerável.
-- [ ] `REVIEW.md` e `docs/processo/ronda.md` preenchidos.
+- [ ] CI on every PR and protection on the default branch.
+- [ ] Coverage floor on the critical packages.
+- [ ] Publishing to production only by manual trigger, with a quick automatic test right after.
+- [ ] How to revert a version, written in `docs/operacao/` **and rehearsed once**.
+- [ ] A downtime alert that reaches Rafael, and the error service switched on.
+- [ ] Automatic alert for a vulnerable dependency.
+- [ ] `REVIEW.md` and `docs/processo/ronda.md` filled in.
 
-## 9. Lembretes
+## 9. Reminders
 
-{{Coisas que o agente deve lembrar antes de mexer em partes sensíveis. Comece vazio.}}
+{{Things the agent must remember before touching sensitive parts. Start empty.}}
