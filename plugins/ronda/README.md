@@ -18,7 +18,7 @@ A scheduled run (a routine, with nobody in the session) asks no questions and ma
 
 - `codigo` only maps and reports; cleanups happen in a live session.
 - `saude` compares errors over a 7-day window when there is no previous snapshot.
-- When the settings name a routine issue, the run first reads the last four weeks of reports there, so a finding already reported comes back as a single line and a finding dismissed in a reply stays out, and then posts the whole report there as one comment. That comment is the only thing the skill writes outside the repository.
+- When the settings name a routine issue, the run first reads the last four weeks of reports there, so a finding already reported comes back as a single line and a finding dismissed in a reply stays out, and then posts the whole report there as one comment, without secret values or personal data. That comment is the only thing the skill writes outside the repository, and a reply never dismisses a committed secret.
 
 ## Per-repository settings
 
