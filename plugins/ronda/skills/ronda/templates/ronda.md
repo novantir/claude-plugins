@@ -51,5 +51,6 @@ Os critérios ficam no `REVIEW.md` da raiz. Buscas extras deste repositório:
 
 ## Rotina
 
-- **Agendamento:** {{onde a rotina roda, quando, com quais modos e quais conectores · ou "só à mão"}}
+- **Agendamento:** {{onde a rotina roda, quando e com quais conectores e ferramentas · ou "só à mão"}}
+- **Modos da rotina, na ordem:** {{docs, deps, seguranca, saude, codigo}}
 - **Issue da rotina:** {{ID da issue permanente onde a rotina posta o relatório e lê o que já relatou · ou "não tem"}}
