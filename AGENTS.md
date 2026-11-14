@@ -27,7 +27,7 @@ To test a skill for real, install the plugin from the local folder in a session 
 
 ## 4. Conventions
 
-- **Two languages, on purpose:** the root README, the `plugin.json` files, `marketplace.json` and the plugins' READMEs are in English, because the marketplace is public. The content of the skills (`SKILL.md`, templates) is in Portuguese, because it talks to Rafael and to Novantir's repositories; `secret-input-card`, which serves anyone, is entirely in English.
+- **Language:** the global rule applies ("Language" in `~/.claude/CLAUDE.md`). The marketplace is public, so the root README, the `plugin.json` files, `marketplace.json` and the plugins' READMEs are in English. `SKILL.md` files and the templates of files the AI reads (such as the `AGENTS-*.md` templates of `novo-projeto`) are in English too; the trigger phrases in each skill's `description` and the templates of text that reaches Rafael stay in Portuguese. `secret-input-card`, which serves anyone, is entirely in English.
 - Commits so far in English, in the format `<plugin>: description` (see `git log`), and `type: description` for what is not about a single plugin. Switching commits to Portuguese: to be decided.
 - When a plugin changes, bump the `version` in its `plugin.json` (`secret-input-card` is already at 0.1.9 because of that), and its description in `marketplace.json` stays the same as the manifest's.
 - Identifiers in English. Small commits.

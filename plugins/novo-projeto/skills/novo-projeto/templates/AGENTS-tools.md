@@ -20,7 +20,7 @@ This is the repository's only instructions file. It applies together with Rafael
 
 ## 4. Conventions
 
-- Docs and commits in Portuguese; code and names in English. Small commits, `tipo: descrição`.
+- Language follows the global rule ("Language" in `~/.claude/CLAUDE.md`): commits in Portuguese, and what the tool produces follows the product that asked for it; this file, docs, code comments, code and names in English. Small commits, `tipo: descrição`.
 - Every function that calls a paid service shows the estimated cost first and accepts a dry mode (`--dry-run`).
 - No secret in the repository; keys through environment variables, asked for through the `secret-input-card` plugin.
 - A change that alters the tool's output comes with a new example in `exemplos/` and an updated `CHANGELOG.md`.

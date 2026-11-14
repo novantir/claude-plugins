@@ -19,7 +19,7 @@ This is the repository's only instructions file. It applies together with Rafael
 
 ## 4. Conventions
 
-- Docs, UI and commits in Portuguese; identifiers in English. Small commits, `tipo: descrição`.
+- Language follows the global rule ("Language" in `~/.claude/CLAUDE.md`): UI, commits and runbooks in Portuguese; this file, technical docs, code comments and identifiers in English. Small commits, `tipo: descrição`.
 - Runs the same on both machines with Claude (MacBook Pro and Alienware) and, when it applies, on the Linux server.
 - Every rule change has a date and a reason in the file itself.
 

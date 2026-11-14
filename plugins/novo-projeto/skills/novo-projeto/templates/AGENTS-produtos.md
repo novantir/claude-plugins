@@ -23,7 +23,7 @@ This is the repository's only instructions file. It applies together with Rafael
 
 ## 4. Conventions
 
-- Brazilian Portuguese in everything people read: docs, UI, comments and commit messages. Code, tables and names in English.
+- Language follows the global rule ("Language" in `~/.claude/CLAUDE.md`): what is for Rafael or for customers (UI, e-mails, commit messages, PRs, business docs and runbooks) is in Portuguese; what the AI reads to work (this file, code comments, technical docs) is in English. Code, tables and names in English.
 - Small commits, `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
 - Documentation in `docs/`, never a loose `.md` at the root. Decisions with a date and a reason.
 - No decorative `try/catch`, no fallback for a scenario that does not happen, no abstraction before the third similar case.

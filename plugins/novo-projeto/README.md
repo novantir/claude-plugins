@@ -1,6 +1,6 @@
 # novo-projeto
 
-Skill `novo-projeto`: starts a new Novantir project the way the existing ones are laid out. Written in Portuguese.
+Skill `novo-projeto`: starts a new Novantir project the way the existing ones are laid out. Written in English; it talks to the owner in Portuguese.
 
 - Asks only what the request did not say: name, category (`produtos`, `jogos`, `tools` or `oficina`), one sentence, stack if decided, GitHub visibility.
 - Creates `~/projects/<categoria>/<nome>` with `git init`, an `AGENTS.md` from the category template (`skills/novo-projeto/templates/AGENTS-<categoria>.md`), a `README.md` and a `.gitignore` (base plus the stack block). A product also gets the `docs/` skeleton: `docs/README.md`, `docs/troubleshooting/` and, when the `full-stop-send` and `ronda` plugins are installed, their per-repository settings files in `docs/processo/`. With `revisao-pr` installed, any project also gets a `REVIEW.md` at the root.

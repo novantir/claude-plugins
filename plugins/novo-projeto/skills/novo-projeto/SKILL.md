@@ -15,7 +15,7 @@ Before creating anything, have these answers (ask at once whatever the request d
 |---|---|
 | **Name** | lowercase, no accents, words separated by hyphens (`nfse-rapida`). It becomes the name of the folder and of the repository. |
 | **Category** | `produtos` (what is sold or published: software, channel, site), `jogos`, `tools` (a tool reused across products; code only) or `oficina` (how the programming gets done: tools of the process itself). In doubt between tools and oficina: tools serves the products, oficina serves Rafael while programming. |
-| **One sentence** | what the project is, for the second line of the `AGENTS.md` and the README. |
+| **One sentence** | what the project is, for the second line of the `AGENTS.md` and the README. Write it in English there, like the rest of both files (global "Language" rule). |
 | **Stack** | only if already decided. With no decision, the `AGENTS.md` keeps the section open; do not invent. |
 | **GitHub repository** | private by default, in the `novantir` organization. Public only if Rafael says so. |
 
@@ -44,7 +44,7 @@ Leave the commands ready and **ask for the OK before running** each one:
 
 - **GitHub repository:** `gh repo create novantir/<nome> --private --source=. --remote=origin --push`.
 - **Cockpit:** add the project's entry to `~/projects/oficina/cockpit/config/cockpit.json`, in the MacBook Pro's `projects` list, at the end of the list (the tests check the order), in the format `{ "id": "<nome>", "label": "<Nome>", "path": "~/projects/<categoria>/<nome>", "github": "novantir/<nome>" }` (without GitHub: `"github": null, "expect_git": false, "expect_remote": false, "files": true`). Then, in the cockpit: `make validate`, `make test`, `make sign`, commit, and the publish (`zsh scripts/publish.sh`) only with Rafael's OK.
-- **Linear:** create the project `<Nome>` in the Novantir team, with the summary of the AGENTS.md and the repository link, and one issue for each next step already known. Every product has a project in Linear: it is where Rafael follows what was done and what is missing.
+- **Linear:** create the project `<Nome>` in the Novantir team, with a summary of the AGENTS.md in Portuguese (Linear is for Rafael) and the repository link, and one issue for each next step already known. Every product has a project in Linear: it is where Rafael follows what was done and what is missing.
 - **Lab or production:** not part of this skill. The dev and staging environments on the Vostro are the `publicar-no-lab` skill; production is Rafael's decision.
 
 ## 4. When done

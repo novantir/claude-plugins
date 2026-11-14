@@ -22,7 +22,7 @@ This is the repository's only instructions file. It applies together with Rafael
 
 ## 4. Conventions
 
-- Docs and commit messages in Portuguese; code, node names, scenes and assets in English.
+- Language follows the global rule ("Language" in `~/.claude/CLAUDE.md`): commit messages, `CONTEXTO.md` and the design docs in `docs/design/` are for Rafael, in Portuguese; this file, code comments and technical docs in English. Code, node names, scenes and assets in English.
 - Small commits, `tipo: descrição`. A binary scene or asset: one per commit, with a description of what changed, because the diff does not show it.
 - Never edit a binary file (`.uasset`, binary `.tscn`, `.blend`) as text.
 - Design decisions in `docs/design/`, with a date.
