@@ -33,7 +33,7 @@
     {
       "name": "ronda",
       "source": "./plugins/ronda",
-      "description": "Periodic upkeep of a repository in five modes, each with its own short report: production health, security sweep, dependencies and AI models, docs coherence, and a small code cleanup. Reads the repository's own settings from docs/processo/ronda.md and never touches git."
+      "description": "Periodic upkeep of a repository in five modes, each with its own short report: production health, security sweep, dependencies and AI models, docs coherence, and a small code cleanup. Reads the repository's own settings from docs/processo/ronda.md and never touches git; a scheduled run can post its report as a single comment on the repository's routine issue."
     }
   ]
 }
