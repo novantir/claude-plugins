@@ -48,6 +48,7 @@ The local settings **prevail** over this skill when they are stricter. They neve
   - approving an environment deployment;
   - triggering a production `workflow_dispatch`;
   - touching secrets.
+- **Data rule:** nothing the flow writes outside the session (the branch name, the commit messages, the PR's title, body and comments, the closing files of section 7 and the tracker) carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (such as a name, a username, an e-mail, a phone number, an address, what the person wrote or sent, or a link or ID that leads to a person). The proof goes in as the command and its result without those values: an argument that carries one becomes a placeholder (`<token>`, `<e-mail>`), and an output that carries one is summarized, not pasted.
 - **No issue, or outside what is here:** no commit, push, PR or merge without Rafael's explicit OK.
 
 ## 3. Roles
@@ -65,11 +66,13 @@ QA does not formally approve, because the GitHub account is usually the same as 
 1. **Issue:** confirm the ID and read the whole issue. If the repo uses a tracker and there is no issue, stop and ask for one.
 2. **Branch:** `<id-in-lowercase>-<short-slug>` (e.g., `nov-9-login-social`), from the updated default branch.
 3. **Code and proof:** write the smallest change that solves it. Run the proof of section 5 locally. The closing files (steps 2 to 4 of section 7: pitfalls and canonical docs) go in here, before the review.
-4. **Commit:** small commits, in Portuguese, in the format `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`).
+4. **Commit:** small commits, in Portuguese, in the format `tipo: descrição` (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`). The message follows the data rule of section 2.
 5. **PR:** push the branch and `gh pr create`. The body starts with `Resolve <ID>` and has:
    - **Rodado localmente** (run locally): each command and the result;
    - **Só a CI prova** (only the CI proves): what depends on the CI or on production to be verified;
    - **Testado como** (tested as), **Risco** (risk: Quick, Standard or Deep, by the paths touched) and **Como reverter** (how to revert: one step, or the repo's runbook; if it cannot be reverted in one step, say so). Without these three sections the review points out the gap.
+
+   The PR's title, body and comments follow the data rule of section 2.
 6. **CI:** follow the PR's checks. If the app offers a PR monitor, use it instead of polling in a loop. Red CI: fix it or explain.
 7. **Review:** run the loop of section 5 with QA.
 8. **Gate:** check the list of section 5.
@@ -81,7 +84,7 @@ QA does not formally approve, because the GitHub account is usually the same as 
     - QA's findings and the decision on each;
     - the PR, the CI and the final state (awaiting OK, merged or abandoned).
 
-    Nothing written to the tracker carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (such as a name, a username, an e-mail, or a link or ID that leads to a person): the proof goes in as the command and its result, without those values.
+    The record follows the data rule of section 2.
 11. **Closing:** the rest of section 7 (case study, leftovers, status and summary). The files already went in at step 3.
 
 ## 5. Review, proof and gate
@@ -163,7 +166,7 @@ Applies at the end of the flow and also on its own, when Rafael says "fecha a ta
 7. **Status:** the issue only goes to done after the merge. With the PR open, record the PR, the CI and "aguardando OK do Rafael", and leave the status as it is. An issue the settings mark as permanent (recurring maintenance) does not close: it gets a dated comment.
 8. **Summary:** one line per issue, with ID, title, PR and what is left pending on Rafael's action. An open critical finding shows up in that line.
 
-What steps 5 to 7 write to the tracker follows the rule of section 4, step 10: no secret value and no customer or user data.
+The files of steps 2 and 3 and what steps 5 to 7 write to the tracker follow the data rule of section 2: no secret value and no customer or user data.
 
 Do not ask for a review of the draft before writing it, unless Rafael asks for one. Do not hand-edit a generated index.
 
