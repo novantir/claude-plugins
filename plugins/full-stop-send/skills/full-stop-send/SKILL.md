@@ -56,7 +56,7 @@ The local settings **prevail** over this skill when they are stricter. They neve
 - **Boss:** takes care of git. Creates the branch, commits, pushes, opens the PR, watches the CI and the comments, and calls Rafael.
 - **QA:** an independent reviewer that only reads. Posts the findings and the verdict on the PR.
 
-**In a Claude Code session alone:** you do Code and Boss. QA is the **`revisao-pr`** skill (a plugin from the same marketplace), when installed: reviewers in parallel that see only the diff, verifiers that vote on each finding before it is posted, findings tagged Important, Nit or Pre-existing, depth by the risk of the change and a cap on rounds; its comment on the PR is the "Revisão da QA" and its verdict (🟢, 🟡 or 🔴, citing the SHA) is what the gate reads. Without the plugin, QA is a **subagent** (Agent tool) that receives only the diff (`gh pr diff N`), the issue's goal and the repo settings, and does **not** receive your conclusions; it returns the findings and the verdict, and you post them as a comment on the PR, identified as "Revisão da QA". If the repo has separate agents, each one does only its own role.
+**In a Claude Code session alone:** you do Code and Boss. QA is the **`revisao-pr`** skill (a plugin from the same marketplace), when installed: reviewers in parallel that see only the diff, verifiers that vote on each finding before it is posted, findings tagged Important, Nit or Pre-existing, depth by the risk of the change and a cap on rounds; its comment on the PR is the "Revisão da QA" and its verdict (🟢, 🟡 or 🔴, citing the SHA) is what the gate reads. Without the plugin, QA is a **subagent** (Agent tool) that receives only the diff (`gh pr diff N`), the issue's goal and the repo settings, and does **not** receive your conclusions; it returns the findings and the verdict, in Portuguese, and you post them as a comment on the PR, identified as "Revisão da QA". If the repo has separate agents, each one does only its own role.
 
 QA does not formally approve, because the GitHub account is usually the same as Boss's. The verdict comes out as a written comment. A critical security finding (data leaking, exposed secret, flaw exploitable now) goes straight to Rafael, without waiting for the end of the loop.
 
@@ -90,7 +90,7 @@ QA does not formally approve, because the GitHub account is usually the same as 
 - One reviewer at a time.
 - Up to 3 rounds of fixing or rebutting, or 5 when the change touches security, permissions or data; Quick (only docs and comments) has 1.
 - In each fix, the smallest possible change.
-- Each finding is **accepted**, with the fix, or **rebutted**, with the reason in writing.
+- Each finding is **aceito** (accepted), with the fix, or **rebatido** (rebutted), with the reason in writing.
 - At the end, one line on the PR with the number of rounds and the verdict.
 - A clean review does **not** prove the code runs. Only the CI proves it.
 
@@ -159,7 +159,7 @@ Applies at the end of the flow and also on its own, when Rafael says "fecha a ta
 3. **Canonical docs:** if the change altered a limit, a price or a product rule, update the corresponding doc in `docs/`.
 4. **In the same PR:** the files of steps 2 and 3 go into the issue's branch (`docs: fecha <ID> ...`), never into the default branch, and before the review. A commit after QA's verdict changes the SHA: ask for a new round before calling the PR ready. With the PR already merged, open another one through this same flow.
 5. **Case study:** a comment or document on the issue, in the template below. If there is already a `📓 Case study` on it, update that one.
-6. **Leftovers:** the scope left out and each review finding dismissed as "does not block" become a new issue in the tracker, with a description, a priority and the repo's labels, cited in "Referências". If the settings name an issue of ideas to evaluate, an uncertain leftover goes there as an item, instead of an issue of its own.
+6. **Leftovers:** the scope left out and each review finding dismissed as "não bloqueia" (does not block) become a new issue in the tracker, with a description, a priority and the repo's labels, cited in "Referências". If the settings name an issue of ideas to evaluate, an uncertain leftover goes there as an item, instead of an issue of its own.
 7. **Status:** the issue only goes to done after the merge. With the PR open, record the PR, the CI and "aguardando OK do Rafael", and leave the status as it is. An issue the settings mark as permanent (recurring maintenance) does not close: it gets a dated comment.
 8. **Summary:** one line per issue, with ID, title, PR and what is left pending on Rafael's action. An open critical finding shows up in that line.
 
