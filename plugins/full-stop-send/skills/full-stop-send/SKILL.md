@@ -80,6 +80,8 @@ QA does not formally approve, because the GitHub account is usually the same as 
     - what changed and the proof run;
     - QA's findings and the decision on each;
     - the PR, the CI and the final state (awaiting OK, merged or abandoned).
+
+    Nothing written to the tracker carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (a name, a username, an e-mail): the proof goes in as the command and its result, without those values.
 11. **Closing:** the rest of section 7 (case study, leftovers, status and summary). The files already went in at step 3.
 
 ## 5. Review, proof and gate
@@ -160,6 +162,8 @@ Applies at the end of the flow and also on its own, when Rafael says "fecha a ta
 6. **Leftovers:** the scope left out and each review finding dismissed as "does not block" become a new issue in the tracker, with a description, a priority and the repo's labels, cited in "Referências". If the settings name an issue of ideas to evaluate, an uncertain leftover goes there as an item, instead of an issue of its own.
 7. **Status:** the issue only goes to done after the merge. With the PR open, record the PR, the CI and "aguardando OK do Rafael", and leave the status as it is. An issue the settings mark as permanent (recurring maintenance) does not close: it gets a dated comment.
 8. **Summary:** one line per issue, with ID, title, PR and what is left pending on Rafael's action. An open critical finding shows up in that line.
+
+What steps 5 to 7 write to the tracker follows the rule of section 4, step 10: no secret value and no customer or user data.
 
 Do not ask for a review of the draft before writing it, unless Rafael asks for one. Do not hand-edit a generated index.
 

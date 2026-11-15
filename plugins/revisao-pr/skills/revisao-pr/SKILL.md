@@ -128,7 +128,7 @@ When the review closes (🟢, the cap, or Rafael's decision), record the fate of
 |---|---|
 | `file:line` class | **corrigido** (fixed) · **errado** (false positive) · **intencional** (rebutted and accepted) · **não importa** (right, but not worth the change) · **issue** (pre-existing) |
 
-Where: on the tracker's issue, if the repo has one connected (one line per finding, plus how many findings the reviewers produced and how many the vote discarded); otherwise, in the review's last comment on the PR. A finding marked "errado" that repeats in different PRs goes into "Falsos positivos conhecidos" of the `REVIEW.md`, in a separate change with Rafael's OK.
+Where: on the tracker's issue, if the repo has one connected (one line per finding, plus how many findings the reviewers produced and how many the vote discarded); otherwise, in the review's last comment on the PR. In either place, the record carries no secret value (a key, a token, a password, or a link or code that gives access) and no customer or user data (a name, a username, an e-mail): a line cites the `file:line` and the class, never the value. A finding marked "errado" that repeats in different PRs goes into "Falsos positivos conhecidos" of the `REVIEW.md`, in a separate change with Rafael's OK.
 
 ## 8. Creating a repository's `REVIEW.md`
 
