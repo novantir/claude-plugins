@@ -36,7 +36,7 @@ The level comes **from the diff**: the paths touched and the kind of line change
 |---|---|---|---|---|
 | **Quick** | only `.md` outside `docs/processo/**`, only comments with no directive, only text that is not a string in code | 1 (conventions + text) | 1 | 1 |
 | **Standard** | a common product change: code, tests, UI, style, scripts | 3 (bugs, security, conventions) | 2, simple majority | 3 |
-| **Deep** | any file in "Caminhos sempre Deep" of the `REVIEW.md` or in the "Sempre Full Stop" list (auth, sessions, billing, permissions and multi-tenancy, migrations and data, secrets and environment variables, `.github/workflows/**`, dependency or runtime bump, LGPD, logging in production, directives in comments, prompt/e-mail/UI/i18n strings, agent rules) | 4 (bugs, security, conventions, data and migrations) | 3, majority | 5 |
+| **Deep** | any file in "Caminhos que são sempre Deep" of the `REVIEW.md` or in the "Sempre Full Stop" list (auth, sessions, billing, permissions and multi-tenancy, migrations and data, secrets and environment variables, `.github/workflows/**`, dependency or runtime bump, LGPD, logging in production, directives in comments, prompt/e-mail/UI/i18n strings, agent rules) | 4 (bugs, security, conventions, data and migrations) | 3, majority | 5 |
 
 A single Deep file makes the whole PR Deep. In doubt between two levels, the higher one. The level and the reason (the paths) go in the last line of the comment.
 
