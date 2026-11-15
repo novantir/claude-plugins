@@ -5,7 +5,7 @@
 ### Important
 
 1. **{{Título curto}}** — `{{arquivo:linha}}`
-   {{O que acontece de errado e como fazer aparecer (entrada, estado, resultado).}}
+   {{O que acontece de errado e como fazer aparecer (tipo de entrada, nunca o valor; estado; resultado).}}
    Correção: {{a menor mudança que resolve}}. Classe: {{ex.: "mesma falta de filtro em outros 2 lugares: a:12, b:40"}}.
 
 ### Nit
