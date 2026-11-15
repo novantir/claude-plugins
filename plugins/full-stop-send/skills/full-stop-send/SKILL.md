@@ -48,7 +48,7 @@ The local settings **prevail** over this skill when they are stricter. They neve
   - approving an environment deployment;
   - triggering a production `workflow_dispatch`;
   - touching secrets.
-- **Data outside the session:** nothing the flow writes outside the session (the branch name, the commit messages, the PR's title, body and comments, the closing files of section 7 and the tracker) carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (such as a name, a username, an e-mail, or a link or ID that leads to a person). The proof goes in as the command and its result without those values: an argument that carries one becomes a placeholder (`<token>`, `<e-mail>`), and an output that carries one is summarized, not pasted.
+- **Data rule:** nothing the flow writes outside the session (the branch name, the commit messages, the PR's title, body and comments, the closing files of section 7 and the tracker) carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (such as a name, a username, an e-mail, or a link or ID that leads to a person). The proof goes in as the command and its result without those values: an argument that carries one becomes a placeholder (`<token>`, `<e-mail>`), and an output that carries one is summarized, not pasted.
 - **No issue, or outside what is here:** no commit, push, PR or merge without Rafael's explicit OK.
 
 ## 3. Roles
