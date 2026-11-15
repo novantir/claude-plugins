@@ -1,6 +1,6 @@
 # Revisão de PR
 
-A Claude Code skill that reviews a pull request with the process the Claude Code team described in ["How the Claude Code team does code review"](https://claude.dev/blog/solving-code-review-at-anthropic/), sized for a one-person company. Written in Portuguese, for Novantir's repositories.
+A Claude Code skill that reviews a pull request with the process the Claude Code team described in ["How the Claude Code team does code review"](https://claude.dev/blog/solving-code-review-at-anthropic/), sized for a one-person company. Written in English, for Novantir's repositories; it writes to the owner in Portuguese.
 
 What it does, in order:
 
