@@ -81,7 +81,7 @@ QA does not formally approve, because the GitHub account is usually the same as 
     - QA's findings and the decision on each;
     - the PR, the CI and the final state (awaiting OK, merged or abandoned).
 
-    Nothing written to the tracker carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (a name, a username, an e-mail): the proof goes in as the command and its result, without those values.
+    Nothing written to the tracker carries a secret value (a key, a token, a password, or a link or code that gives access) or customer or user data (such as a name, a username, an e-mail, or a link or ID that leads to a person): the proof goes in as the command and its result, without those values.
 11. **Closing:** the rest of section 7 (case study, leftovers, status and summary). The files already went in at step 3.
 
 ## 5. Review, proof and gate
